@@ -1,0 +1,113 @@
+@import '../Lib/Vars.scss';
+
+.header__container{
+    @extend %flex-center;
+    min-height: 10%;
+    text-align: center;
+    background-color:$color-black;
+    color: $color-white;
+    flex-wrap: wrap;
+    padding-top: 5%;
+    align-items: flex-start;
+    position: relative;
+    @include respond-to(700px){
+        flex-wrap: nowrap;
+        align-items: center;
+        padding-top: 0%;
+    }
+}
+
+.header_logo{
+    width: 80%;
+    text-align: left;
+    padding-left: 3%;
+    @include respond-to(700px){
+        width: auto;
+    }
+}
+
+.header__nav{
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 99%;
+    background-color: $color-black;
+    z-index: 100;
+    @include respond-to(700px){
+        position: relative;
+        height: auto;
+        display: none;
+      }
+}
+
+.header__nav-desktop{
+    display: none;
+    @include respond-to(700px){
+        display: inline-block;
+      }
+}
+
+.header__nav ul{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+    @include respond-to(700px){
+        width: auto;
+    }
+}
+
+.header__nav li{
+    color: $color-white;
+    width: 80vw;
+    margin: 20px 0px;
+    @include respond-to(700px){
+        width: auto;
+        font-size: 14px;
+
+    }
+}
+
+.header__togleButton{
+    margin-right: 20px;
+    width: 30px;
+    padding-top: 2%;
+    @include respond-to(700px){
+      display: none;
+    }
+    
+}
+
+
+.header__togleButton__item{
+    width: 100%;
+    height: 4px;
+    background-color: $color-white;
+    position: relative;
+}
+
+
+.header__togleButton__item::after{
+    width: 100%;
+    content: "";
+    height: 4px;
+    background-color: $color-white;
+    position: absolute;
+    bottom: 10px;
+    left: 0px;
+    
+}
+
+.header__togleButton__item::before{
+    width: 100%;
+    content: "";
+    height: 4px;
+    background-color: $color-white;
+    position: absolute;
+    top: 10px;
+    left: 0px;
+}
+
+.header__nav{
+}

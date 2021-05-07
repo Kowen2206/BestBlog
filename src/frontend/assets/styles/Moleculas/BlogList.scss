@@ -1,0 +1,74 @@
+//Querido y un poco fuera de forma rafa, recuerda BlogList es el contenedor de los items y el carrusel.
+//mientras que BlogListItem es el item que contiene la foto y descripción del blog. 
+@import '../Lib/Vars.scss';
+
+.blogList__container{
+    width: 100%;
+    min-height: 75%;
+    @extend %flex-center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    @include respond-to(700px){
+        justify-content:space-evenly
+    }
+}
+
+.blogList__item{
+@extend %flex-center;
+width: 80vw;
+flex-wrap: wrap;
+height: auto;
+text-align: left;
+margin: map-get($marging , vertical);
+@include respond-to(700px){
+    width: 40vw;
+}
+@include respond-to(1250px){
+    width: 20vw;
+}
+
+}
+
+.blogList__item h1{
+    width: 100%;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.blogList__image__link img{
+    width: 80vw;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    object-fit: cover;
+    @include respond-to(700px){
+        width: 40vw;
+    }
+    @include respond-to(1250px){
+        width: 20vw;
+    }
+}
+
+.userInfo img{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.userInfo__image{
+    margin-right: 5%;
+}
+.userInfo{
+    margin: map-get($marging , vertical);
+    width: 100%;
+    @extend %flex-center;
+    justify-content: flex-start;
+    border-top: solid 3px $color-gray;
+    border-bottom: solid 3px $color-gray;
+    padding: map-get($padding , vertical)
+}
+
+.userInfo span{
+   
+}

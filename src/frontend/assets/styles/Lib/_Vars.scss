@@ -1,0 +1,54 @@
+@mixin respond-to ($width){
+  @media only screen and (min-width: $width){
+      @content;
+  }
+}
+
+%flex-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+$color-black: rgb(52, 52, 52);
+$color-gray: rgb(214, 213, 213);
+$color-white: rgb(255, 255, 255);
+
+$fontSize: (
+  big: 24px,
+  normal: 16px,
+  small: 14px,
+  x-small: 12px
+);
+
+@mixin padding($sides: "both") {
+    padding-left: auto;
+    margin-right: auto;
+  }
+
+  $padding: (
+    both: 10px 10px 10px 10px,
+    horizontal: 0px 10px,
+    vertical: 10px 0px,
+  );
+  
+  $marging: (
+    both: 10px 10px 10px 10px,
+    horizontal: 0px 10px,
+    vertical: 10px 0px,
+  );
+
+/*--------------ListBlogs-----------*/
+
+$listBlog-width: 80%;
+$listBlog-heigth: 80%;
+
+
+/*--------------Gallery-----------*/
+
+
+@mixin  respond-to-height ($height) {
+  @media only screen and (min-height: $height){
+    @content;
+}
+}

@@ -1,0 +1,43 @@
+@import '../Lib/Vars.scss';
+
+.carrusel__container{
+    @extend %flex-center;
+    height: 30vh;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin-bottom: 15%;
+    @include respond-to(700px){
+        margin-bottom: 20%;
+    }
+}
+
+.carrusel__image img{
+    width: 98.5vw;
+    height: 25vh;
+    object-fit: cover;
+    background-color: $color-black;
+    @include respond-to(1250px){
+        height: 50vh;
+    }
+}
+
+.carrusel__item{
+    @extend %flex-center;
+    flex-wrap: wrap;
+}
+
+.carrusel__textCard{
+    position: relative;
+    bottom: 90px;
+    background-color: $color-white;
+    padding: 3%;
+    width: 80%;
+    border-radius: 12px;
+    box-shadow: 0 12px 4px -8px #777;
+    height: 20vh;
+    overflow: hidden;
+    @include respond-to-height(900px){        
+        height: 20vh;
+        bottom: 110px;
+    }
+}

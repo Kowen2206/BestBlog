@@ -1,0 +1,40 @@
+@import '../Lib/Vars.scss';
+
+.Login__Container{
+    @extend %flex-center;
+    height: 75%;
+    align-items: center;
+    
+}
+
+.Login__Container h1{
+    text-align: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.Login__Container form{
+    margin: 10px 0px;
+    padding: 0px 10%;
+}
+
+.Login__Container input{
+    width: 100%;
+    margin: map-get($marging , vertical);
+    border: 0px;
+    border-bottom: 1px solid $color-black;
+}
+
+.login__card{
+    @extend %flex-center;
+    flex-wrap: wrap;
+    border-bottom: solid 1px;
+    border-top: solid 1px;
+    width: 80%;
+    padding: 1% 0;
+}
+
+.login__card label{
+    margin-bottom: 10px;
+    display: inline-block;
+}

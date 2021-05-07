@@ -1,17 +1,16 @@
 import React from 'react';
-import BlogList from '../components/BlogList';
+import BlogContent from '../components/BlogContent';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
-
-const Blog = () =>{
+const BlogPost = () =>{
 return(
     <div className="App">
             <Header/>
-            <BlogList/>
+            <BlogContent/>
             <Footer/>
     </div>
 );
 }
 
-export default Blog;
+export default BlogPost;

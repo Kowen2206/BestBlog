@@ -1,0 +1,8 @@
+@import '../Lib/Vars.scss';
+
+.footer__container{
+    height: 15%;
+    @extend %flex-center;
+    background-color: black;
+
+}

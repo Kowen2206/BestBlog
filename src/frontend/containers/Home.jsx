@@ -6,7 +6,7 @@ import '../assets/styles/App.scss'
 
 const Home = () =>{
 
-    return(
+    return( 
         <div className="App">
             <Header/>
                 <Landing/>

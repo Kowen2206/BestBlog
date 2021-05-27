@@ -13,12 +13,15 @@ const isDev = (process.env.ENV == "development");
 const entry = ['./src/frontend/index.js'];
 isDev && entry.push('webpack-hot-middleware/client?path=/__webpack_hmr&timeout=2000&reload=true');
 
+//public path es muy importante al crear una pagina con rutas dinamicas, esta chingaderita detuvo mi trabajo 3 putos dias.
+
 module.exports = {
     entry,
     mode: 'production',
     output: {
       path: path.resolve(__dirname, 'src/server/public'),
       filename: 'assets/app-[contenthash].js',
+      publicPath: '/',
     },
     resolve: {
         extensions: ['.js', '.jsx'],

@@ -11,7 +11,7 @@ const BlogList = (props) =>{
             <Carrusel/>
 
                 {props.articles.map(item => {
-                return <BlogListItem key={item.id} {...item} />})
+                return <BlogListItem key={item._id} {...item} />})
                 }
 
 

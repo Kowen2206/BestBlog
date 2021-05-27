@@ -13,7 +13,7 @@ const BlogListItem = (props) =>{
     const handleClickArticle = () =>{
         console.log(props.ArticleContent)
         props.loadArticle(props.ArticleContent);
-        window.location.href= `/Blog/60a9f604f705101f144ea5df`;
+        window.location.href= `/Blog/${props._id}`;
     }
     return(
     <>

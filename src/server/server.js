@@ -59,6 +59,7 @@ const setResponse = (html, preloadedState, manifest) => {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, user-scalable=no">
+        <link rel="icon" href="data:,">
         <link rel="stylesheet" href="${mainStyles}" type="text/css" />
         <title>Portafolio</title>
     </head>
@@ -76,9 +77,6 @@ const setResponse = (html, preloadedState, manifest) => {
 const renderApp = async (req, res, next) => {
     let initialState;
     let { email, name, id, token, photo } = req.cookies;
-    console.log("req.cookies")
-    console.log(req.cookies)
-    console.log(email)
     let articles;
 
     token ? token = token : token = process.env.API_KEY_TOKEN;
@@ -114,7 +112,11 @@ const renderApp = async (req, res, next) => {
         }
     }
 
-    console.log(ENV != "development" ? req._parsedOriginalUrl.pathname : req.url)
+    console.log("req.url")
+    console.log(req.url)
+
+    console.log("req._parsedOriginalUrl.pathname")
+    console.log(req._parsedOriginalUrl.pathname)
 
     const store = createStore(reducer, initialState);
     const preloadedState = store.getState();
@@ -168,7 +170,6 @@ app.post("/auth/sign-in", async function (req, res, next) {
 });
 
 app.post("/auth/sign-up", async function (req, res, next) {
-    console.log(req.body);
     const { body: user } = req;
     const data = { ...user, isAdmin: false }
     try {
@@ -184,9 +185,7 @@ app.post("/auth/sign-up", async function (req, res, next) {
 });
 
 app.post("/api/articles", async function (req, res, next) {
-    console.log("try articles");
     try {
-        console.log("try articles");
 
         const dataArticle = await axios.get(`${process.env.API_URL}/api/article`);
         res.status(200).send(dataArticle.data);

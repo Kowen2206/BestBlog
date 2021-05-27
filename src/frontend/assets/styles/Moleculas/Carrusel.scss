@@ -6,6 +6,7 @@
     flex-wrap: wrap;
     align-items: flex-start;
     margin-bottom: 15%;
+    outline: 3% $color-white;
     @include respond-to(700px){
         margin-bottom: 20%;
     }
@@ -14,7 +15,7 @@
 .carrusel__image img{
     width: 98.5vw;
     height: 25vh;
-    object-fit: cover;
+    object-fit: contain;
     background-color: $color-black;
     @include respond-to(1250px){
         height: 50vh;

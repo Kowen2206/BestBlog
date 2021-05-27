@@ -22,20 +22,20 @@ const serverRoutes = (isLogged) =>{
         },
         {
             exact: true,
-            path: '/BlogPost',
+            path: '/Blog/:id',
             component: BlogPost,
     
         },
         {
             exact: true,
             path: '/Login',
-            component: Login,
+            component: isLogged? Home : Login,
     
         },
         {
             exact: true,
             path: '/Editor',
-            component: Editor,
+            component: isLogged? Editor : Login,
     
         },
         {

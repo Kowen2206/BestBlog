@@ -1,70 +1,49 @@
 import React from 'react'
 import "../assets/styles/Moleculas/BlogList.scss";
+import { connect } from 'react-redux'
+import {loadArticle} from '../actions'
+
+
 const imageURL = "https://scontent-qro1-1.xx.fbcdn.net/v/t1.6435-9/48379979_2024468410980028_1855760733292199936_n.jpg?_nc_cat=100&ccb=1-3&_nc_sid=174925&_nc_eui2=AeFaMXIWqOznEPjhgirxlv2lpLDRR1vtDGOksNFHW-0MYwxGIDQjgxiV4rbuwTFzjVQkaPg8XaTt6kUGi1tviUpw&_nc_ohc=_rhDjouV_DsAX8l2x2V&_nc_ht=scontent-qro1-1.xx&oh=6d46fcb1120dec664531b204a94b78a2&oe=60B359EF;" 
 
-const BlogListItem = () =>{
-    return(
-        <>
-    
-    <article className="blogList__item">
-                <a className="blogList__image__link"> 
-                    <img src="https://i.ytimg.com/vi/YbL-rJv3BpI/maxresdefault.jpg" alt=""/>
-                </a>
-                <h1>Blog title</h1>
-                <div className="blogList__content">
-                    <a className="blogList__image__content">
-                        Este es un contenido random pero en un futuro muy cercano (espero que es esta semana), sera real.
-                        Este es un contenido random pero en un futuro muy cercano (espero que es esta semana), sera real.
-                        Este es un contenido random pero en un futuro muy cercano...
-                        
+const BlogListItem = (props) =>{
 
+    const {ArticleContent} = props;
+
+    const handleClickArticle = () =>{
+        console.log(props.ArticleContent)
+        props.loadArticle(props.ArticleContent);
+        window.location.href= `/Blog/60a9f604f705101f144ea5df`;
+    }
+    return(
+    <>
+    <article className="blogList__item" onClick={()=> handleClickArticle()}>
+                <a className="blogList__image__link"> 
+                    <img src={props.ArticlePhoto} alt=""/>
+                </a>
+                <h1>{props.Title}</h1>
+                <div className="blogList__content">
+                    <a className="blogList__image__content" dangerouslySetInnerHTML={{__html: props.Preview}}>
                     </a>
                 </div>
                 <footer className="userInfo">
                     <div className="userInfo__image">
-                        <img src="https://i.ytimg.com/vi/YbL-rJv3BpI/maxresdefault.jpg" alt=""/>
+                        <img src={props.UserPhoto} alt=""/>
                     </div>
-                    <span>Rafa Anaya 22:12</span>
+                    <span>{props.UserName} {props.Date}</span>
                 </footer>
                 
-            </article>
-
-            <article className="blogList__item">
-                <a className="blogList__image__link"> 
-                    <img src="https://unity.com/sites/default/files/styles/810_scale_width/public/2020-05/unity-input-system-verified-package-810x455%402x.jpg?itok=fSu2TTfe" alt=""/>
-                </a>
-                <h1>Blog title</h1>
-                <div className="blogList__content">
-                    <a className="blogList__image__content">
-                        Este es un contenido random pero en un futuro muy cercano (espero que es esta semana), sera real.
-                        Este es un contenido random pero en un futuro muy cercano (espero que es esta semana), sera real.
-                        Este es un contenido random pero en un futuro muy cercano...
-                        
-
-                    </a>
-                </div>
-                
-            </article>
-
-            <article className="blogList__item">
-                <a className="blogList__image__link"> 
-                    <img src="https://i.ytimg.com/vi/YbL-rJv3BpI/maxresdefault.jpg" alt=""/>
-                </a>
-                <h1>Blog title</h1>
-                <div className="blogList__content">
-                    <a className="blogList__image__content">
-                        Este es un contenido random pero en un futuro muy cercano (espero que es esta semana), sera real.
-                        Este es un contenido random pero en un futuro muy cercano (espero que es esta semana), sera real.
-                        Este es un contenido random pero en un futuro muy cercano...
-                        
-
-                    </a>
-                </div>
-                
-            </article>
-    
+    </article>
     </>
     )
 }
 
-export default BlogListItem;
+const mapStateToProps  = state => {
+    return {articles: state.articles}
+}
+
+const mapDispatchToProps = {
+    loadArticle
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BlogListItem);

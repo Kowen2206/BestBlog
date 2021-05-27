@@ -1,47 +1,72 @@
 import '../assets/styles/Organismos/Header.scss';
-import React, {useEffect, useState} from 'react';
-import {Link} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { LogOut } from '../actions'
 
-const Header = () =>{
+const Header = (props) => {
+
 
     const [menu, useMenu] = useState(false);
 
-    const handleTogle = () =>{
+    const handleTogle = () => {
         console.log(menu)
         useMenu(!menu);
     }
 
-    return(
+    const handleLogOut = () => {
+
+        props.LogOut();
+        document.cookie = "email=";
+        document.cookie = "name=";
+        document.cookie = "id=";
+        document.cookie = "token=";
+        document.cookie = "photo="
+
+        window.location.href = "/"
+    }
+
+    return (
         <div className="header__container">
             <a className="header_logo"><h1>BESTBLOG</h1></a>
-            <div onClick={ ()=> handleTogle()} className="header__togleButton">
-                <div className="header__togleButton__item"></div>
+            <div className="header__togleButton">
+                <div onClick={() => handleTogle()} className="header__togleButton__item"></div>
             </div>
 
             <nav className="header__nav header__nav-desktop">
                 <ul>
                     <Link to="/Home"> <li>HOME</li> </Link>
                     <Link to="/Editor"> <li>CREA TU BLOG</li> </Link>
-                    <Link to="/Login"> <li>REGISTRATE /LOGIN</li> </Link>
+                    {props.session ? <Link onClick={() => { handleLogOut(); }}> <li>LogOut</li> </Link> : <Link to="/Login"> <li>REGISTRATE /LOGIN</li> </Link>}
                     <Link to="/"> <li>ABOUT</li> </Link>
                 </ul>
             </nav>
 
             {
-               menu && 
-               <nav onClick={ ()=> handleTogle()} className="header__nav">
-                <ul>
-                    <Link to="/Home"> <li>HOME</li> </Link>
-                    <Link to="/Editor"> <li>CREA TU BLOG</li> </Link>
-                    <Link to="/Login"> <li>REGISTRATE /LOGIN</li> </Link>
-                    <Link to="/"> <li>ABOUT</li> </Link>
-                </ul>
+                menu &&
+                <nav onClick={() => handleTogle()} className="header__nav">
+                    <ul>
+                        <Link to="/Home"> <li>HOME</li> </Link>
+                        <Link to="/Editor"> <li>CREA TU BLOG</li> </Link>
+                        {props.session ? <Link onClick={handleLogOut} to="/"> <li>LogOut</li> </Link> : <Link to="/Login"> <li>REGISTRATE /LOGIN</li> </Link>}
+                        <Link to="/"> <li>ABOUT</li> </Link>
+                    </ul>
                 </nav>
             }
-            
+
         </div>
     );
 
 }
 
-export default Header;
+const mapStateToProps = state => {
+    return {
+        session: state.user.session
+    }
+}
+
+const mapDispatchToProps = {
+    LogOut
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

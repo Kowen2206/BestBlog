@@ -1,6 +1,7 @@
 import React from 'react';
-import LoginCard from "../components/LoginCard"
-import '../assets/styles/Moleculas/LoginCard.scss'
+import LoginCard from "../components/LoginCard";
+import '../assets/styles/Moleculas/LoginCard.scss';
+import '../assets/styles/Atomos/UploadImageButton.scss';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 

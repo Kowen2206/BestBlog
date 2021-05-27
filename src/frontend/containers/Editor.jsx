@@ -2,6 +2,7 @@ import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import '../assets/styles/Moleculas/Editor.scss';
+import '../assets/styles/Atomos/UploadImageButton.scss';
 import TextEditor from '../components/TextEditor';
 
 const Editor = () =>{

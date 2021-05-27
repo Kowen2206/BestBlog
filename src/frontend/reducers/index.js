@@ -3,9 +3,25 @@ const reducer = (state, action)=>{
         case "saveArticle": 
         return{
             ...state,
-            user:[{...action.payload, session: true}],
+            pending_articles:[{...action.payload}],
 
         };
+        case "sigIn":
+            return{
+                ...state,
+                user:[{...action.payload, session: true}]
+            };
+        case "LogOut": 
+        return{
+            ...state,
+            user:[{}],
+            
+        };
+        case "loadArticle":
+            return{
+                ...state,
+                articleView: action.payload
+            }
         default:
             return state;
     }

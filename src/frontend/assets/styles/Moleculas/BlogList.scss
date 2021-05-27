@@ -14,18 +14,27 @@
     }
 }
 
+.blogList__container > *{
+
+    margin-bottom: 10px;
+
+}
+
 .blogList__item{
 @extend %flex-center;
 width: 80vw;
+height: 140vw;
 flex-wrap: wrap;
 height: auto;
 text-align: left;
 margin: map-get($marging , vertical);
 @include respond-to(700px){
     width: 40vw;
+    height: 70vw;
 }
 @include respond-to(1250px){
     width: 20vw;
+    height: 35vw;
 }
 
 }
@@ -34,18 +43,22 @@ margin: map-get($marging , vertical);
     width: 100%;
     text-align: left;
     margin-bottom: 10px;
+    font-size: 16px;
 }
 
 .blogList__image__link img{
     width: 80vw;
+    height: 80vw;
     padding-bottom: 10px;
     margin-bottom: 10px;
     object-fit: cover;
     @include respond-to(700px){
         width: 40vw;
+        height: 40vw;
     }
     @include respond-to(1250px){
         width: 20vw;
+        height: 20vw;
     }
 }
 
@@ -68,7 +81,17 @@ margin: map-get($marging , vertical);
     border-bottom: solid 3px $color-gray;
     padding: map-get($padding , vertical)
 }
-
+/*
 .userInfo span{
    
+}*/
+
+.blogList__content h1, h2, h3{
+    font-size: map-get($fontSize , small);
+    font-weight: 400;
+}
+
+.blogList__content{
+    height: 5vh;
+    overflow: hidden;
 }

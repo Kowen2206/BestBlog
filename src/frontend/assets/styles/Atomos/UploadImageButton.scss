@@ -1,0 +1,24 @@
+@import '../Lib/Vars.scss';
+
+.ImageButton{
+    background-color: cadetblue;
+    height: 5vh;
+    width: 40vw;
+    color: aliceblue;
+    text-align: center;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    @include respond-to(900px){
+        width: 30vh;
+    }
+    @include respond-to(700px){
+        width: 12vw;
+    }
+}
+
+.ImageButton:hover{
+    background-color: rgb(81, 135, 137);
+}

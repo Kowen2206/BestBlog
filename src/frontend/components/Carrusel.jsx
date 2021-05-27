@@ -1,7 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import "../assets/styles/Moleculas/Carrusel.scss"
 
-const Carrusel = ()=>{
+const Carrusel = (props)=>{
     return(
 
         <div className="carrusel__container">
@@ -12,13 +13,12 @@ const Carrusel = ()=>{
 
             <article className="carrusel__item">
                 <section className="carrusel__image">
-                    <img src="https://img.lalr.co/cms/2020/01/29165223/platzi-2.jpg?size=xl" alt=""/>
+                    <img src={props.articles[1].ArticlePhoto} alt=""/>
                 </section>
                 <section className="carrusel__textCard">
-                    <h1>¿Platzi funciona?</h1>
-                    <p>
-                    Este es un contenido random pero en un futuro muy cercano (espero que es esta semana), sera real. Este es un contenido random pero en
-                     un futuro muy cercano (espero que es esta semana), sera real. Este es un contenido random pero en un futuro muy cercano...
+                    <h1>{props.articles[1].Title}</h1>
+                    <p dangerouslySetInnerHTML={{__html: props.articles[1].Preview}}>
+                    
                     </p>
                 </section>
             </article>
@@ -27,4 +27,8 @@ const Carrusel = ()=>{
     );
 }
 
-export default Carrusel;
+const mapStateToProps  = state => {
+    return {articles: state.articles}
+}
+
+export default connect(mapStateToProps, null)(Carrusel);

@@ -7,7 +7,7 @@ import Login from '../containers/Login'
 import NotFound from '../containers/NotFound'
 import Editor from '../containers/Editor'
 
-const App = () =>{
+const App = ({isLogged}) =>{
 
     return (
     <BrowserRouter>
@@ -15,10 +15,10 @@ const App = () =>{
         <Route exact path="/" component={Home} />
         <Route exact path="/Home" component={Blog} />
         <Route exact path="/Blogs" component={Blog} />
-        <Route exact path="/BlogPost" component={BlogPost} />
-        <Route exact path="/Login" component={Login} />
-        <Route exact path="/Register" component={Login} />
-        <Route exact path="/Editor" component={Editor} />
+        <Route exact path="/Blog/:id" component={BlogPost} />
+        <Route exact path="/Login" component={isLogged? Home : Login} />
+        <Route exact path="/Register" component={isLogged? Home : Login} />
+        <Route exact path="/Editor" component={isLogged? Editor : Login} />
         <Route component={NotFound}/>
         </Switch>
     </BrowserRouter>);

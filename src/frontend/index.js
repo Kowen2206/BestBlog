@@ -1,8 +1,8 @@
-import React from 'react'
-import ReactDom from "react-dom"
-import App from "./routes/App"
-import './assets/styles/App.scss'
-import {Provider} from "react-redux"
+import React from 'react';
+import ReactDom from "react-dom";
+import App from "./routes/App";
+import './assets/styles/App.scss';
+import {Provider} from "react-redux";
 import {createStore, compose, applyMiddleware} from "redux";
 import {createBrowserHistory} from "history";
 import {Router} from "react-router";
@@ -15,10 +15,14 @@ const preloadedState = window.__PRELOADED_STATE__;
 const store = createStore(reducer, preloadedState, composeEnhancers(applyMiddleware(thunk)));
 delete window.__PRELOADED_STATE__;
 
+console.log(preloadedState + "store");
+console.log(store);
+console.log(preloadedState);
+
 ReactDom.hydrate(
     <Provider store={store}>
         <Router history={history}>
-            <App isLogged={true}/>
+            <App isLogged={preloadedState.user.session}/>
         </Router>
     </Provider>
     ,document.getElementById("App")

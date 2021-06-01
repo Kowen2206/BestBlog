@@ -17,7 +17,7 @@ const reducer = (state, action)=>{
             user:[{}],
             
         };
-        case "loadArticle":
+        case "injectArticle":
             return{
                 ...state,
                 articleView: action.payload

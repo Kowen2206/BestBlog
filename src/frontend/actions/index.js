@@ -8,8 +8,26 @@ export const saveArticle = payload => {
 }
 
 export const loadArticle = payload =>{
+  return (dispatch, getState) =>{
+    console.log("LoadArticle")
+      axios.post('/api/article', {payload}).
+
+      then(data =>{
+        console.log("data");
+         console.log(data.data)
+        
+        dispatch(injectArticle(data.data))
+        
+        })
+
+      .catch(err => {  console.log("err"); console.log(err)});
+      
+  }
+}
+
+export const injectArticle = (payload) =>{
   return{
-    type: "loadArticle",
+    type: "injectArticle",
     payload
   }
 }
@@ -77,8 +95,10 @@ export const createArticle = (payload, image) => {
     })
       .then(data => {
         console.log("data " + JSON.stringify(data.data));
-       
-        axios.post('/api/articles/createArticle', { ...payload, ArticlePhoto: data.data.url }).then(data => console.log(data))
+        axios.post('/api/articles/createArticle', { ...payload, ArticlePhoto: data.data.url })
+        .then(data => console.log(data)).then(window.location.href = "/Home")
+        .catch(err => {console.log("err"); console.log(err);})
+
       })
       .catch((err) => { console.log("Create article action error: " + err) })
   }

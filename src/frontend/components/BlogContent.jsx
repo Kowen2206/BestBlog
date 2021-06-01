@@ -1,15 +1,34 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {connect} from 'react-redux'
 import {loadArticle} from '../actions'
+import '../assets/styles/Moleculas/BlogContent.scss'
+import HeaderImage from './HeaderImage';
 
 const BlogContent = (props) =>{
 
-    const {articleView} = props;
+ const getParams = () =>{
+    console.log(window.location.href.substring(27, window.location.href.length));
+    return window.location.href.substring(27, window.location.href.length);
+ }
+
+    useEffect(() =>{
+       
+        let id = getParams();
+        props.loadArticle(id);
+        console.log(props.articleView)
+    }, []);
+
+    
 
     return(
-        <div className="blogContent__Container" dangerouslySetInnerHTML={{__html: articleView}}>
+        <> 
+            <HeaderImage Image={props.articleView.ArticlePhoto} />
+            <h1 className="blogContent_title"> {props.articleView.Title} </h1>
             
-        </div>
+            <div className="blogContent__container" onClick={ ()=> console.log(props)} dangerouslySetInnerHTML={{__html: props.articleView.ArticleContent}}>
+            
+            </div>
+        </>
     );
 }
 
@@ -19,4 +38,8 @@ return{
 }
 }
 
-export default connect(mapStateToProps, null)(BlogContent);
+const mapDispatchToProps = {
+    loadArticle
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BlogContent);

@@ -61,7 +61,7 @@ const setResponse = (html, preloadedState, manifest) => {
         <meta name="viewport" content="width=device-width, user-scalable=no">
         <link rel="icon" href="data:,">
         <link rel="stylesheet" href="${mainStyles}" type="text/css" />
-        <title>Portafolio</title>
+        <title>BESTBLOG</title>
     </head>
     <body>
         <div id="App">${html}</div>
@@ -261,7 +261,20 @@ app.post('/uploadCkeditorImage', upload.single('upload'), async (req, res, next)
 
         blobWriter.end(req.file.buffer)
     }
-})
+});
+
+app.post('/api/article', (req, res, next) =>{
+
+console.log("REQUESBODY");
+console.log(req.body);
+
+const {payload} = req.body;
+
+    axios.get(`${process.env.API_URL}/api/article/${payload}`)
+    .then(article => res.status(200).send(JSON.stringify(article.data.data)))
+    .catch(err => {console.log("errServer"); console.log(err); res.send(err);});
+
+});
 
 app.listen(PORT, (err) => {
     if (err) {

@@ -1,0 +1,19 @@
+@import '../Lib/Vars.scss';
+
+.blogContent_title{
+    text-align: left;
+    margin: 50px 15%;
+}
+
+.blogContent__container{
+    width: 70vw;
+    min-height: 100vh;
+    margin-left: 15vw;
+}
+
+.blogContent__container img{
+
+    max-width: 70vw;
+    object-fit: cover;
+
+}

@@ -28,6 +28,7 @@ flex-wrap: wrap;
 height: auto;
 text-align: left;
 margin: map-get($marging , vertical);
+color: $color-black;
 @include respond-to(700px){
     width: 40vw;
     height: 70vw;

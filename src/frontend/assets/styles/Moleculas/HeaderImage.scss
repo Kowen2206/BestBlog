@@ -1,0 +1,29 @@
+@import '../Lib/Vars.scss';
+
+.headerImage__container{
+    @extend %flex-center;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    //margin-bottom: 15%;
+    outline: 3% $color-white;
+    @include respond-to(700px){
+       // margin-bottom: 20%;
+    }
+}
+
+.headerImage__image img{
+    width: 100vw;
+    height: 25vh;
+    object-fit: cover;
+    overflow: hidden;
+    background-color: $color-black;
+    @include respond-to(1250px){
+        height: 70vh;
+    }
+}
+
+.headerImage__item{
+    @extend %flex-center;
+    flex-wrap: wrap;
+}
+

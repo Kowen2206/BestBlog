@@ -2,20 +2,22 @@
 
 .carrusel__container{
     @extend %flex-center;
-    height: 30vh;
     flex-wrap: wrap;
     align-items: flex-start;
-    margin-bottom: 15%;
+    //margin-bottom: 15%;
     outline: 3% $color-white;
+    overflow: hidden;
+    position: relative;
     @include respond-to(700px){
-        margin-bottom: 20%;
+        //margin-bottom: 20%;
     }
 }
 
 .carrusel__image img{
-    width: 98.5vw;
+    width: 100vw;
     height: 25vh;
     object-fit: contain;
+    overflow: hidden;
     background-color: $color-black;
     @include respond-to(1250px){
         height: 50vh;
@@ -42,3 +44,29 @@
         bottom: 110px;
     }
 }
+
+.carrusel__buttonL{
+    position: absolute;
+    z-index: 1;
+    top: 35%;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: aliceblue;
+    left: 10%;
+    cursor: pointer;
+}
+
+.carrusel__buttonR{
+    position: absolute;
+    z-index: 1;
+    top: 35%;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: aliceblue;
+    right: 10%;
+    cursor: pointer;
+}
+
+

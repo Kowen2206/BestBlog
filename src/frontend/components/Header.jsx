@@ -47,7 +47,7 @@ const Header = (props) => {
                 <nav onClick={() => handleTogle()} className="header__nav">
                     <ul>
                         <Link to="/Home"> <li>HOME</li> </Link>
-                        <Link to="/Editor"> <li>CREA TU BLOG</li> </Link>
+                        <Link to="/Editor"> <li>{props.session? "CREAR ARTICULO" : "CREA UN BLOG"}</li> </Link>
                         {props.session ? <Link onClick={handleLogOut} to="/"> <li>LogOut</li> </Link> : <Link to="/Login"> <li>REGISTRATE /LOGIN</li> </Link>}
                         <Link to="/"> <li>ABOUT</li> </Link>
                     </ul>

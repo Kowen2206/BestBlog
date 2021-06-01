@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { connect } from 'react-redux';
 import { createArticle } from '../actions';
+import HeaderImage from '../components/HeaderImage';
 
 //Agregar validación para tamaño de titulo maximo de 39 caracteres 
 
@@ -13,7 +14,9 @@ const TextEditor = (props) => {
 
     const editorRef = useRef();
     const [editorLoaded, setEditorLoaded] = useState(false);
-    const { CKEditor, ClassicEditor } = editorRef.current || {}
+    const { CKEditor, ClassicEditor } = editorRef.current || {};
+
+    const [HeaderArticleImage, HeaderArticleImageState] = useState("");
 
     useEffect(() => {
         editorRef.current = {
@@ -27,15 +30,27 @@ const TextEditor = (props) => {
         saveButtonState(!saveButton);
     }
 
+    const handleHeaderImage = (file) =>{
+       const imageUrlPreview = URL.createObjectURL(file);
+       HeaderArticleImageState(imageUrlPreview);
+    }
+
     return (
+        <>
+        {HeaderArticleImage != "" &&  <HeaderImage Image={HeaderArticleImage} />}
         <div className="editor__container">
             
             <div className="editor__container Editorcontainer_item">
+                    
 
                     <div className="Editorcontainer_item">Selecciona una imagen de portada para tu articulo</div>
 
                     <label className="Editorcontainer_item ImageButton" htmlFor="Image">{articleData.ArticlePhoto == ""?"Subir una imagen" : "Cambiar imagen"}</label>
-                    <input className="InputFile Editorcontainer_item" onChange={data => articleDataState({ ...articleData, ArticlePhoto: data.target.files[0] })} 
+                    <input className="InputFile Editorcontainer_item" onChange={data => {
+                            articleDataState({ ...articleData, ArticlePhoto: data.target.files[0]})
+                            handleHeaderImage(data.target.files[0]);
+                        }
+                    } 
                     type="file" id="Image" name="Image" />
 
                     <div className="Editorcontainer_item" > {articleData.ArticlePhoto == ""? "Debes Seleccionar una imagen" : articleData.ArticlePhoto.name }</div>
@@ -95,6 +110,7 @@ const TextEditor = (props) => {
                     }}>Guardar</button>
            
         </div>
+    </>
     );
 }
 //articleDataState({...articleData, ArticlePhoto: data}) createArticle 

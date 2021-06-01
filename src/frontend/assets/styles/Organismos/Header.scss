@@ -43,7 +43,8 @@
 .header__nav-desktop{
     display: none;
     @include respond-to(700px){
-        display: inline-block;
+        display: flex;
+        justify-content: flex-end;
       }
 }
 
@@ -54,7 +55,7 @@
     justify-content: space-around;
     align-items: center;
     @include respond-to(700px){
-        width: auto;
+        width: 42%;
     }
 }
 
@@ -62,9 +63,10 @@
     color: $color-white;
     width: 80vw;
     margin: 20px 0px;
+    font-size: 12px;
     @include respond-to(700px){
         width: auto;
-        font-size: 14px;
+        font-size: 12x;
 
     }
 }

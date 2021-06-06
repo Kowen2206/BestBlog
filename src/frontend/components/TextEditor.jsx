@@ -104,7 +104,8 @@ const TextEditor = (props) => {
                             ArticlePhoto: articleData.ArticlePhoto,
                             UserName: props.UserName,
                             UserPhoto: props.UserPhoto,
-                            Date: "21/05/12"
+                            Date: "21/05/12",
+                            UserId: props.userId
                         }, articleData.ArticlePhoto); 
 
                     }}>Guardar</button>
@@ -122,7 +123,8 @@ const mapStateToProps = state =>{
     //UserPhoto: state.user.UserPhoto
     return{
         UserName: state.user.name,
-        UserPhoto: state.user.photo
+        UserPhoto: state.user.photo,
+        userId: state.user.id
     }
 }
 

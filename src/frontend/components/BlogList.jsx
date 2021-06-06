@@ -8,11 +8,11 @@ const BlogList = (props) =>{
     return(
         <div className="blogList__container">
             <Carrusel/>
-
+            <div className="blogLitsItem__container">
                 {props.articles.map(item => {
                 return <BlogListItem key={item._id} {...item} />})
                 }
-
+            </div>
 
         </div>
     );

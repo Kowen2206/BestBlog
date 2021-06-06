@@ -20,6 +20,16 @@
 
 }
 
+.blogLitsItem__container{
+
+    width: 80%;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap-reverse;
+    justify-content: space-between;
+
+}
+
 .blogList__item{
 @extend %flex-center;
 width: 80vw;
@@ -33,6 +43,7 @@ color: $color-black;
     width: 40vw;
     height: 70vw;
 }
+
 @include respond-to(1250px){
     width: 20vw;
     height: 35vw;

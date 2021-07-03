@@ -2,7 +2,7 @@
 
 .header__container{
     @extend %flex-center;
-    min-height: 10%;
+    min-height: 10vh;
     text-align: center;
     background-color:$color-black;
     color: $color-white;
@@ -21,6 +21,7 @@
     width: 80%;
     text-align: left;
     padding-left: 3%;
+    font-size: 18px;
     @include respond-to(700px){
         width: auto;
     }
@@ -55,7 +56,7 @@
     justify-content: space-around;
     align-items: center;
     @include respond-to(700px){
-        width: 42%;
+        width: 90%;
     }
 }
 

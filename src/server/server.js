@@ -18,7 +18,6 @@ import firebase from './lib/firebase';
 import multer from 'multer';
 
 require('./utils/auth/strategies/basic');
-
 const upload = multer({
     storage: multer.memoryStorage()
 });
@@ -37,17 +36,16 @@ if (ENV == "development") {
     const compiler = webpack(webpackConfig);
     app.use(require("webpack-dev-middleware")(compiler, { publicPath: webpackConfig.output.publicPath, serverSideRender: true }));
     app.use(require("webpack-hot-middleware")(compiler));
-
+    app.use(cookieParser());
 
 } else {
     app.use((req, res, next) => { if (!req.hashManifest) req.hashManifest = getManifest(); next(); });
     app.use(express.static(`${__dirname}/public`));
     app.use(cookieParser());
-  //  app.use(helmet({contentSecurityPolicy: false}));
-  //  app.use(helmet.permittedCrossDomainPolicies());
-  //  app.disable('x-powered-by');
+    //  app.use(helmet({contentSecurityPolicy: false}));
+    //  app.use(helmet.permittedCrossDomainPolicies());
+    //  app.disable('x-powered-by');
 }
-
 
 const setResponse = (html, preloadedState, manifest) => {
     const mainStyles = manifest ? manifest['vendors.css'] : 'assets/app.css';
@@ -76,10 +74,14 @@ const setResponse = (html, preloadedState, manifest) => {
 
 const renderApp = async (req, res, next) => {
     let initialState;
+    console.log("req");
+    console.log(req.cookies)
     let { email, name, id, token, photo } = req.cookies;
     let articles;
 
     token ? token = token : token = process.env.API_KEY_TOKEN;
+
+    console.log("pinshiToken");
 
     try {
         let ArticlesList = await axios(
@@ -97,6 +99,7 @@ const renderApp = async (req, res, next) => {
             },
             articles: ArticlesList,
             articleView: [],
+            Error: [false, "Error"]
 
         }
 
@@ -105,18 +108,14 @@ const renderApp = async (req, res, next) => {
         initialState = {
             user: {
                 session: false,
-                 email: [], name: [], id: [], photo: [], articles: []
+                email: [], name: [], id: [], photo: [], articles: []
             },
             articles: [],
             articleView: [],
+            Error: [true, "Parece que hay un error en el servidor, intenta conectarte más tarde"]
         }
     }
 
-    console.log("req.url")
-    console.log(req.url)
-
-    console.log("req._parsedOriginalUrl.pathname")
-    console.log(req._parsedOriginalUrl.pathname)
 
     const store = createStore(reducer, initialState);
     const preloadedState = store.getState();
@@ -124,7 +123,7 @@ const renderApp = async (req, res, next) => {
     const isLogged = initialState.user.session;
     const html = renderToString(
         <Provider store={store}>
-            <StaticRouter location={ENV != "development" ? req._parsedOriginalUrl.pathname : req.url} context={{}}>
+            <StaticRouter location={req.url} context={{}}>
                 {renderRoutes(serverRoutes(isLogged))}
             </StaticRouter>
         </Provider>
@@ -137,8 +136,7 @@ const renderApp = async (req, res, next) => {
 
 }
 
-//if (req._parsedOriginalUrl.pathname != "/favicon.ico") { next() } 
-app.get('*', (req, res, next) =>{ if (req._parsedOriginalUrl.pathname != "/favicon.ico") { next() }else{ console.log("req.url");console.log(req.url);}} ,renderApp);
+app.get('*', renderApp);
 
 app.post("/auth/sign-in", async function (req, res, next) {
 
@@ -148,11 +146,11 @@ app.post("/auth/sign-in", async function (req, res, next) {
             if (error || !data) {
                 next(boom.unauthorized("err data"));
             }
-
             req.login(data, { session: false }, async function (err) {
                 if (err) {
                     next(err);
                 }
+
 
                 const { token, ...user } = data;
 
@@ -160,7 +158,6 @@ app.post("/auth/sign-in", async function (req, res, next) {
                     httpOnly: !(ENV === 'development'),
                     secure: !(ENV === 'development')
                 });
-
                 res.status(200).json(user);
             });
         } catch (err) {
@@ -184,10 +181,31 @@ app.post("/auth/sign-up", async function (req, res, next) {
     }
 });
 
+//obtiene un articulo mediante su id
+app.post('/api/article', (req, res, next) => {
+    const { payload } = req.body;
+    axios.get(`${process.env.API_URL}/api/article/${payload}`)
+        .then(article => res.status(200).send(JSON.stringify(article.data.data)))
+        .catch(err => { console.log("errServer"); console.log(err); res.send(err); });
+});
+
+//consigue todos los articulos de la api
 app.post("/api/articles", async function (req, res, next) {
     try {
-
         const dataArticle = await axios.get(`${process.env.API_URL}/api/article`);
+        res.status(200).send(dataArticle.data);
+    }
+    catch (err) {
+        console.log("ERROR ARTICLES")
+        console.log(err)
+    }
+});
+
+//consigue todos los articulos de un usuario mediante su id (bueno, creo que era mediante el id)
+app.post("/api/articles-user", async function (req, res, next){
+    try {
+        const {tags} = req.body;
+        const dataArticle = await axios.get(`${process.env.API_URL}/api/article/?tags=${tags}`);
         res.status(200).send(dataArticle.data);
     }
     catch (err) {
@@ -195,16 +213,25 @@ app.post("/api/articles", async function (req, res, next) {
     }
 });
 
+//elimina un articulo de manera definitiva de mongo
+app.post('/api/deleteArticle', async function (req, res, next) {
+    axios.delete(`${process.env.API_URL}/api/article/${req.body.idArticle}`).then(response => res.status(200).send(response.data)).catch(res => console.log(res));
+})
+
+//inserta un articulo a mongo
 app.post('/api/articles/createArticle', async (req, res, next) => {
     try {
         const ArticleStatus = await axios.post(`${process.env.API_URL}/api/article`, req.body);
         res.status(200).send(ArticleStatus.data);
     }
     catch (err) {
-        console.log("ERROR CREATE ARTICLE " + err);
+        console.log("ERROR CREATE ARTICLE ");
+        console.log(err.request);
+        res.status(500).send(err);
     }
 });
 
+//sube una imagen a firebase y obtiene la url
 app.post('/uploadImage', upload.single('Image'), async (req, res, next) => {
     if (!req.file) {
         res.status(400).send("Error: No files found")
@@ -218,22 +245,19 @@ app.post('/uploadImage', upload.single('Image'), async (req, res, next) => {
         blobWriter.on('error', (err) => {
             console.log(err)
         });
-
         blobWriter.on('finish', (data) => {
             const publicUrl = `https://firebasestorage.googleapis.com/v0/b/${firebase.bucket.name}/o/${encodeURI(blob.name)}?alt=media`;
             console.log("URL: " + publicUrl)
             res.status(200).send({
-
-                 uploaded: true,
-                 url: publicUrl,
-                
+                uploaded: true,
+                url: publicUrl,
             });
         })
-
         blobWriter.end(req.file.buffer)
     }
-})
+});
 
+//sube una imagen a firebase para un preview de ckeditor
 app.post('/uploadCkeditorImage', upload.single('upload'), async (req, res, next) => {
     if (!req.file) {
         res.status(400).send("Error: No files found")
@@ -247,33 +271,26 @@ app.post('/uploadCkeditorImage', upload.single('upload'), async (req, res, next)
         blobWriter.on('error', (err) => {
             console.log(err)
         });
-
         blobWriter.on('finish', (data) => {
             const publicUrl = `https://firebasestorage.googleapis.com/v0/b/${firebase.bucket.name}/o/${encodeURI(blob.name)}?alt=media`;
             console.log("URL: " + publicUrl)
             res.status(200).send({
-
-                 uploaded: true,
-                 url: publicUrl,
-                
-        });
-    })
-
+                uploaded: true,
+                url: publicUrl,
+            });
+        })
         blobWriter.end(req.file.buffer)
     }
 });
 
-app.post('/api/article', (req, res, next) =>{
-
-console.log("REQUESBODY");
-console.log(req.body);
-
-const {payload} = req.body;
-
-    axios.get(`${process.env.API_URL}/api/article/${payload}`)
-    .then(article => res.status(200).send(JSON.stringify(article.data.data)))
-    .catch(err => {console.log("errServer"); console.log(err); res.send(err);});
-
+//obtiene los datos de un usuario mediante su id
+app.post('/api/user', (req, res, next) => {
+    console.log("getUser")
+    const { id } = req.body;
+    console.log(id)
+    axios.get(`${process.env.API_URL}/api/user/${id}`)
+        .then(article => res.status(200).send(JSON.stringify(article.data)))
+        .catch(err => { console.log("errServer"); console.log(err); res.send(err); });
 });
 
 app.listen(PORT, (err) => {

@@ -3,7 +3,7 @@
 .Landing__container{
     @extend %flex-center;
     width: 100%;
-    min-height: 75%;
+    min-height: 75vh;
     flex-direction: column;
 }
 

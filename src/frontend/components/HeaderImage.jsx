@@ -6,11 +6,8 @@ const HeaderImage = ({Image})=>{
     return(
 
         <div className="headerImage__container">
-
             <div className="headerImage__button">
-
             </div>
-
             <article className="headerImage__item">
                 <section className="headerImage__image">
                     <img src={Image} alt=""/>

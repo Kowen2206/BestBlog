@@ -22,23 +22,18 @@ const LoginCard = (props) => {
             ...form,
             [event.target.name]: event.target.value
         });
-
-        console.log(form);
     };
 
     const handleForm = e => {
-        // registered? props.sigInhttp() : props.registerhttp();
-
         e.preventDefault();
         console.log("FORM")
         registered ? props.sigInhttp('/', form) : props.registerhttp('/Login', form);
-        //registered? console.log("registered") : console.log("no_registered");
     }
 
     return (
         <div className="login__card">
             <h1>Escribe tu blog</h1>
-            <div> Eres nuevo? <div className="login__Link" onClick={() => handleToggleForm()}> {registered ? "Create an account" : "Login"} </div></div>
+            <div> {registered ? "¿Eres nuevo?" : "¿Ya tienes una cuenta?"} <div className="login__Link" onClick={() => handleToggleForm()}> {registered ? "Create an account" : "Login"} </div></div>
             <form action="" onSubmit={e => handleForm(e)}>
                 {registered == false && <>
                     <label htmlFor="name">Nombre de usuario</label>

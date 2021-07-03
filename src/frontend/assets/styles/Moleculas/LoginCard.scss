@@ -2,7 +2,7 @@
 
 .Login__Container{
     @extend %flex-center;
-    height: 75%;
+    height: 75vh;
     align-items: center;
     
 }
@@ -47,6 +47,7 @@
 }
 
 .login__Link{
-    color: rgb(70, 96, 147);
+    color: rgb(86, 136, 196);
     cursor: pointer;
+    font-weight: 700;
 }

@@ -4,7 +4,6 @@
     @extend %flex-center;
     flex-wrap: wrap;
     align-items: flex-start;
-    //margin-bottom: 15%;
     outline: 3% $color-white;
     @include respond-to(700px){
        // margin-bottom: 20%;

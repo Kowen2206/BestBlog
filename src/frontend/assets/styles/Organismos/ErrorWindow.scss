@@ -1,0 +1,28 @@
+@import '../Lib/Vars.scss';
+
+.window-error-container{
+    width: 80vw;
+    padding: 0% 5%;
+    height: 30vh;
+    position: absolute;
+    z-index: 1000;
+    top: 30%;
+    left: 10%;
+    background-color: $color-white;
+    border-radius: 12px;
+    border: solid 1px;
+    text-align: center;
+    @extend %flex-center;
+    flex-direction: column;
+    justify-content: space-around;
+
+}
+
+.window-error-container button{
+    background-color: rgb(57, 123, 189);
+    color: aliceblue;
+    border-radius: 3px;
+    border: solid 1px $color-black;
+    width: 90px;
+    height: 24px;
+}

@@ -37,7 +37,7 @@ const Header = (props) => {
                 <ul>
                     <Link to="/Home"> <li>HOME</li> </Link>
                     <Link to="/Editor"> <li>CREA TU BLOG</li> </Link>
-                    {props.session && <Link to="/Profile"><li>PERFIL</li> </Link>}
+                    {props.session && <Link to={`/Profile/${props.userId}`}><li>PERFIL</li> </Link>}
                     {props.session ? <Link onClick={() => { handleLogOut(); }}> <li>LogOut</li> </Link> : <Link to="/Login"> <li>REGISTRATE /LOGIN</li> </Link>}
                     <Link to="/"> <li>ABOUT</li> </Link>
                 </ul>
@@ -49,7 +49,7 @@ const Header = (props) => {
                     <ul>
                         <Link to="/Home"> <li>HOME</li> </Link>
                         <Link to="/Editor"> <li>{props.session? "CREAR ARTICULO" : "CREA UN BLOG"}</li> </Link>
-                        {props.session && <Link to="/Profile"><li>PERFIL</li> </Link>}
+                        {props.session && <Link to={`/Profile/${props.userId}`}><li>PERFIL</li> </Link>}
                         {props.session ? <Link onClick={handleLogOut} to="/"> <li>LogOut</li> </Link> : <Link to="/Login"> <li>REGISTRATE /LOGIN</li> </Link>}
                         <Link to="/"> <li>ABOUT</li> </Link>
                     </ul>
@@ -63,7 +63,8 @@ const Header = (props) => {
 
 const mapStateToProps = state => {
     return {
-        session: state.user.session
+        session: state.user.session,
+        userId: state.user.id
     }
 }
 

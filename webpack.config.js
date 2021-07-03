@@ -17,10 +17,10 @@ isDev && entry.push('webpack-hot-middleware/client?path=/__webpack_hmr&timeout=2
 
 module.exports = {
     entry,
-    mode: 'production',
+    mode: process.env.ENV,
     output: {
       path: path.resolve(__dirname, 'src/server/public'),
-      filename: 'assets/app-[contenthash].js',
+      filename: isDev ? 'assets/app.js' : 'assets/app-[contenthash].js',
       publicPath: '/',
     },
     resolve: {
@@ -79,8 +79,8 @@ module.exports = {
         ]
     },
     plugins: [
-         new MiniCssExtractPlugin({
-            filename: 'assets/app-[contenthash].css',
+      new MiniCssExtractPlugin({
+        filename: isDev ? 'assets/app.css' : 'assets/app-[hash].css',
       }),
        isDev? new webpack.HotModuleReplacementPlugin() : () =>{},
        isDev? () =>{} : new CompressionWebpackPlugin({

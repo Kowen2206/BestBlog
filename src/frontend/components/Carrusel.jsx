@@ -1,46 +1,37 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import "../assets/styles/Moleculas/Carrusel.scss"
+import { Link } from 'react-router-dom';
+import "../assets/styles/Moleculas/Carrusel.scss";
 import HeaderImage from './HeaderImage';
 
-const Carrusel = (props)=>{
+const Carrusel = (props) => {
 
-    const [indexImage, indexImageState] = useState(0);
+    const [indexImage, setIndexImage] = useState(0);
 
-    const handleIndexImage = (change) =>{
-        
-        indexImageState(
+    const handleIndexImage = (change) => {
 
-            change == "Next"? indexImage < props.articles.length - 1? indexImage + 1 : 0 
-            : indexImage <= props.articles.length -1 && indexImage > 0? indexImage - 1 : props.articles.length -1
-
-        );
-
-        console.log(indexImage);
-        console.log(props.articles.length);
+        if(change == "Next"){
+            setIndexImage(indexImage < props.articles.length - 1 ?
+                 indexImage + 1 : 0
+            )
+        }else{
+            setIndexImage(
+                indexImage <= props.articles.length - 1 && indexImage > 0 ? 
+                indexImage - 1 : props.articles.length - 1
+            )
+        }
     }
 
-    return(
-
+    return (
         <div className="carrusel__container">
-
-            <div className="carrusel__buttonR" onClick={()=>{handleIndexImage("Next")}}>
-                
-            </div>
-
-            <div className="carrusel__buttonL" onClick={()=>{handleIndexImage("Last")}}>
-
-            </div>
-
-            <HeaderImage Image={props.articles[indexImage].ArticlePhoto}/>
-
+            <Link style={{ color: "black" }} to={props.articles.length > 0 ? `/Blog/${props.articles[indexImage]._id}` : "/Home"}>
+                <h1>{props.articles.length > 0 ? props.articles[indexImage].Title : ""}</h1>
+            </Link>
+            <div className="carrusel__buttonR" onClick={() => { handleIndexImage("Next") }}></div>
+            <div className="carrusel__buttonL" onClick={() => { handleIndexImage("Last") }}></div>
+            <HeaderImage Image={props.articles.length > 0 ? props.articles[indexImage].ArticlePhoto : ""} />
         </div>
-
     );
 }
 
-const mapStateToProps  = state => {
-    return {articles: state.articles}
-}
-
-export default connect(mapStateToProps, null)(Carrusel);
+export default Carrusel;

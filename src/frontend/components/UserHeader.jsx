@@ -12,7 +12,7 @@ const UserHeader = ({Image, Name}) =>{
             </div>
             <div className="userHeader__imageContainer">
                     <img src={Image} alt="" />
-                </div>
+            </div>
         </div>
     );
 }

@@ -9,6 +9,28 @@
     width: 70vw;
     min-height: 100vh;
     margin-left: 15vw;
+    list-style-type: style;
+}
+
+.blogContent__container li{
+    list-style: circle;
+}
+
+.blogContent__container table, td{
+    border: solid 1px;
+    border-collapse: collapse;
+}
+
+.blogContent__container h1{
+    
+    font-size: 22;
+
+}
+
+.blogContent__container h2{
+    
+    font-size: 19;
+
 }
 
 .blogContent__container img{
@@ -17,3 +39,4 @@
     object-fit: cover;
 
 }
+

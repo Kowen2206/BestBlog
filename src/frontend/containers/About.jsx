@@ -1,16 +1,18 @@
 import React from 'react';
-import BlogList from '../components/BlogList';
+import Landing from '../components/Landing';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import '../assets/styles/App.scss'
 
 const Home = () =>{
-return(
-    <div className="App">
+
+    return( 
+        <div className="App">
             <Header/>
-            <BlogList/>
+                <Landing/>
             <Footer/>
-    </div>
-);
+        </div>
+    );
 }
 
 export default Home;

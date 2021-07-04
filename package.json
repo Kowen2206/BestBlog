@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "production": "webpack -p",
     "dev": "webpack serve --mode development --env development",
-    "build": "webpack-cli --config ./webpack.config.js && nodemon src/server/index",
+    "build": "webpack-cli --config ./webpack.config.js",
     "start": "node src/server/index.js",
     "ssrdev": "nodemon src/server/index"
   },

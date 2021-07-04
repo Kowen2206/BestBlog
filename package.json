@@ -39,6 +39,7 @@
     "passport-http": "^0.3.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-hot-loader": "^4.13.0",
     "react-redux": "^7.2.4",
     "react-router": "^5.2.0",
     "react-router-config": "^5.1.1",
@@ -59,7 +60,6 @@
     "file-loader": "^6.2.0",
     "mini-css-extract-plugin": "^1.5.0",
     "node-sass": "^5.0.0",
-    "react-hot-loader": "^4.13.0",
     "sass-loader": "^11.0.1",
     "terser-webpack-plugin": "^5.1.1",
     "webpack-manifest-plugin": "^3.1.1"

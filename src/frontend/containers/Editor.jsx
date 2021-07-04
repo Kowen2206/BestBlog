@@ -38,6 +38,7 @@ const Editor = (props) => {
       Title == null? handleError("debes agregar un titulo")  :
       ArticlePhoto == null? handleError("debes seleccionar una foto") :
       Preview == null? handleError("El contenido del articulo es demasiado corto")  : null;
+      console.log(Title, ArticlePhoto, ArticleContent, Preview);
       if(!articleError){
       handleCreateArticle({Title, ArticlePhoto, ArticleContent, Preview})
       }

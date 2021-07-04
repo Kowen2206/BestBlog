@@ -11,6 +11,7 @@
     "start": "node src/server/index.js",
     "ssrdev": "nodemon src/server/index"
   },
+  "heroku-run-build-script": false,
   "keywords": [],
   "author": "",
   "license": "ISC",

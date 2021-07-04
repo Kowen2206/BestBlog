@@ -7,14 +7,17 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "production": "webpack -p",
     "dev": "webpack serve --mode development --env development",
+    "build": "webpack-cli --config ./webpack.config.js && nodemon src/server/index",
     "start": "node src/server/index.js",
     "ssrdev": "nodemon src/server/index"
   },
-  "heroku-run-build-script": false,
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/core": "^7.13.16",
+    "@babel/preset-env": "^7.13.15",
+    "@babel/preset-react": "^7.13.13",
     "@babel/polyfill": "^7.12.1",
     "@babel/register": "^7.13.16",
     "@ckeditor/ckeditor5-build-classic": "^27.1.0",
@@ -22,6 +25,7 @@
     "@hapi/boom": "^9.1.2",
     "asset-require-hook": "^1.2.0",
     "axios": "^0.21.1",
+    "babel-loader": "^8.2.2",
     "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -40,13 +44,15 @@
     "react-router-config": "^5.1.1",
     "react-router-dom": "^5.2.0",
     "redux": "^4.1.0",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "webpack": "^5.36.2",
+    "webpack-cli": "^4.7.0",
+    "webpack-dev-middleware": "^4.1.0",
+    "webpack-dev-server": "^3.11.2",
+    "webpack-hot-middleware": "^2.25.0",
+    "webpack-nano": "^1.1.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.13.16",
-    "@babel/preset-env": "^7.13.15",
-    "@babel/preset-react": "^7.13.13",
-    "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^4.0.0-alpha.0",
     "compression-webpack-plugin": "^7.1.2",
     "css-loader": "^5.2.4",
@@ -56,13 +62,7 @@
     "react-hot-loader": "^4.13.0",
     "sass-loader": "^11.0.1",
     "terser-webpack-plugin": "^5.1.1",
-    "webpack": "^5.36.2",
-    "webpack-cli": "^4.7.0",
-    "webpack-dev-middleware": "^4.1.0",
-    "webpack-dev-server": "^3.11.2",
-    "webpack-hot-middleware": "^2.25.0",
-    "webpack-manifest-plugin": "^3.1.1",
-    "webpack-nano": "^1.1.1"
+    "webpack-manifest-plugin": "^3.1.1"
   },
   "engines": {
     "node": "12.17.0"

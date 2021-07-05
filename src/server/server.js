@@ -16,6 +16,7 @@ import boom from '@hapi/boom';
 import passport from 'passport';
 import firebase from './lib/firebase';
 import multer from 'multer';
+import cors from 'cors';
 
 require('./utils/auth/strategies/basic');
 const upload = multer({
@@ -28,6 +29,8 @@ const { ENV, PORT } = process.env;
 
 const app = express();
 app.use(express.json());
+
+const corsOptions = { origin:" https://the-bestblog.herokuapp.com/Editor"};
 
 if (ENV == "development") {
 
@@ -42,6 +45,7 @@ if (ENV == "development") {
     app.use((req, res, next) => { if (!req.hashManifest) req.hashManifest = getManifest(); next(); });
     app.use(express.static(`${__dirname}/public`));
     app.use(cookieParser());
+    app.use(cors(corsOptions));
     //  app.use(helmet({contentSecurityPolicy: false}));
     //  app.use(helmet.permittedCrossDomainPolicies());
     //  app.disable('x-powered-by');

@@ -4,20 +4,15 @@ import { loadArticle } from '../actions';
 import { injectArticle } from '../actions';
 import '../assets/styles/Moleculas/BlogContent.scss';
 import HeaderImage from './HeaderImage';
+import { useParams } from 'react-router-dom';
 
 const BlogContent = (props) => {
     
-
-    const getParams = () => {
-        console.log(window.location.href.substring(27, window.location.href.length));
-        return window.location.href.substring(27, window.location.href.length);
-    }
+    let { id } = useParams();
 
     useEffect(() => {
-        let id = getParams();
         props.loadArticle(id);
-        console.log(props.articleView)
-
+        console.log(props.articleView);
         return () =>{
             props.injectArticle([])
         }

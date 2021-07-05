@@ -53,7 +53,7 @@ const ckEditor = () => {
                                 }}
                                 config={{
                                     ckfinder: {
-                                        uploadUrl: 'http://localhost:2000/uploadCkeditorImage',
+                                        uploadUrl: 'https://the-bestblog.herokuapp.com/uploadCkeditorImage',
                                         removePlugins: ['Heading', 'MediaEmbed'],
                                     }
                                 }}

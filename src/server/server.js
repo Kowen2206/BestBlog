@@ -78,14 +78,10 @@ const setResponse = (html, preloadedState, manifest) => {
 
 const renderApp = async (req, res, next) => {
     let initialState;
-    console.log("req");
-    console.log(req.cookies)
     let { email, name, id, token, photo } = req.cookies;
     let articles;
 
     token ? token = token : token = process.env.API_KEY_TOKEN;
-
-    console.log("pinshiToken");
 
     try {
         let ArticlesList = await axios(

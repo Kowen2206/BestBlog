@@ -47,7 +47,7 @@ const LoginCard = (props) => {
                     <label htmlFor="password">Contraseña</label>
                     <input required={true} onChange={updateInput} type="password" name="password" id="Contraseña" />
                     <label className="ImageButton" htmlFor="Image">Selecciona Una foto de perfil</label>
-                    <input required={true} className="InputFile" onChange={data => setValues({ ...form, photo: data.target.files[0]})}
+                    <input required={true} className="InputFile" accept="image/*" onChange={data => setValues({ ...form, photo: data.target.files[0]})}
                     type="file" id="Image" name="Image" />
                     <br/>
                 </>}

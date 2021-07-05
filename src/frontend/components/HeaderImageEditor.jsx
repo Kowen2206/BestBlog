@@ -18,7 +18,7 @@ const HeaderImageEditor = (props) => {
 
             <div className="Editorcontainer_item">Selecciona una imagen de portada para tu articulo</div>
             <label className="Editorcontainer_item ImageButton" htmlFor="Image">{HeaderArticleImage == "" ? "Subir una imagen" : "Cambiar imagen"}</label>
-            <input className="InputFile Editorcontainer_item" onChange={data => {
+            <input className="InputFile Editorcontainer_item" accept="image/*" onChange={data => {
                 props.uploadImage({key: "articleImage", photo: data.target.files[0]});
                 let image = createImageURL(data);
                 SetHeaderArticleImage(image);

@@ -30,7 +30,7 @@ const { ENV, PORT } = process.env;
 const app = express();
 app.use(express.json());
 
-const corsOptions = { origin:" https://the-bestblog.herokuapp.com/Editor"};
+const corsOptions = { origin:"https://the-bestblog.herokuapp.com"};
 
 if (ENV == "development") {
 

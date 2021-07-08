@@ -7,6 +7,7 @@ import Header from '../components/Header';
 import {getUserArticles} from '../actions'
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import userImage from '../assets/statics/images/programmer.png';
 
 const UserProfile = (props) =>{
 

@@ -45,7 +45,7 @@ export const createArticle = (payload) => {
         .catch((err) => { 
           const message = "Error al crear el articulo";
           console.log(message);
-          console.log(err); 
+          console.log(err.message); 
         });
   }
 }
@@ -104,6 +104,7 @@ export const sigInhttp = (redirectUrl, { email, password }) => {
       }).then(()=>window.location.href = redirectUrl)
       .catch((err) => {
         console.log(err)
+        dispatch(showWindowError("Error al inciar sessión"))
       });
   }
 }

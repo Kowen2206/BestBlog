@@ -2,7 +2,7 @@
 
 .Login__Container{
     @extend %flex-center;
-    height: 75vh;
+    min-height: 75vh;
     align-items: center;
     
 }
@@ -50,4 +50,11 @@
     color: rgb(86, 136, 196);
     cursor: pointer;
     font-weight: 700;
+}
+
+.loginCard_UserImagePreview{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
 }

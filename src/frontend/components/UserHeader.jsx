@@ -11,7 +11,7 @@ const UserHeader = ({Image, Name}) =>{
                 <h1>{Name}</h1>
             </div>
             <div className="userHeader__imageContainer">
-                    <img src={Image} alt="" />
+                    {Image != "" && <img src={Image} alt="" />}
             </div>
         </div>
     );

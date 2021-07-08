@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux'
 import { registerhttp, sigInhttp } from '../actions'
-
+import userImageDefault from '../assets/statics/images/programmer.png';
+import useCreateImageUrlFromInput from '../hooks/useCreateImageUrlFromInput';
 const LoginCard = (props) => {
     const [registered, useRegister] = useState(true);
+    const [imageUser, setimageUser] = useState(userImageDefault);
+
+    const createImageUrl = useCreateImageUrlFromInput();
 
     const handleToggleForm = () => {
         console.log("change");
@@ -14,7 +18,8 @@ const LoginCard = (props) => {
         {
             email: '',
             name: '',
-            password: ''
+            password: '',
+            photo: ""
         });
 
     const updateInput = event => {
@@ -22,12 +27,21 @@ const LoginCard = (props) => {
             ...form,
             [event.target.name]: event.target.value
         });
+        console.log(form)
     };
 
     const handleForm = e => {
         e.preventDefault();
-        console.log("FORM")
-        registered ? props.sigInhttp('/', form) : props.registerhttp('/Login', form);
+
+        if(!registered){
+            if(imageUser !== userImageDefault){
+                 props.registerhttp('/Login', form);
+            }
+        }else{
+           props.sigInhttp('/', form) 
+        }
+        
+        
     }
 
     return (
@@ -37,21 +51,27 @@ const LoginCard = (props) => {
             <form action="" onSubmit={e => handleForm(e)}>
                 {registered == false && <>
                     <label htmlFor="name">Nombre de usuario</label>
-                    <input required={true} onChange={updateInput} type="text" name="name" id="NombreUsuario" />
+                    <input minLength="4" required={true} onChange={updateInput} type="text" name="name" id="NombreUsuario" />
                 </>}
                 <label htmlFor="email">Correo</label>
-                <input required={true} onChange={updateInput} name="email" id="Correo" type="text" />
+                <input required={true} onChange={updateInput} name="email" id="Correo" type="email" />
                 <label required={true} htmlFor="password">Contraseña</label>
                 <input required={true} onChange={updateInput} type="password" name="password" id="Contraseña" />
                 {!registered && <>
-                    <label htmlFor="password">Contraseña</label>
-                    <input required={true} onChange={updateInput} type="password" name="password" id="Contraseña" />
-                    <label className="ImageButton" htmlFor="Image">Selecciona Una foto de perfil</label>
-                    <input required={true} className="InputFile" accept="image/*" onChange={data => setValues({ ...form, photo: data.target.files[0]})}
+                    <label htmlFor="password"> Repite tu contraseña</label>
+                    <input pattern={form.password} required={true} title="Las contraseñas no coinciden" type="password" name="password" id="Contraseña" />
+                    <img className="loginCard_UserImagePreview" src={imageUser} alt="" />
+                    <span>{imageUser !== userImageDefault? form.photo.name : "Debes subir una imagen"}</span>
+                    <label className="ImageButton" htmlFor="Image"> Cambiar foto de perfil </label>
+                    <input required={true} className="InputFile" accept="image/*" onChange={data => {
+                        let url = createImageUrl(data);
+                        setimageUser(url);
+                        setValues({ ...form, photo: data.target.files[0]});
+                    }}
                     type="file" id="Image" name="Image" />
                     <br/>
                 </>}
-                <button className="contentLogin-card-submit">Continuar</button>
+                <button className="contentLogin-card-submit"> {registered ? "Continuar" : "Registrate"} </button>
             </form>
         </div>
     );

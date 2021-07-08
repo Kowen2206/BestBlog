@@ -16,8 +16,7 @@ const handleClickOptions = (action) =>{
     console.log(props._id)
     action == "Eliminar"?
     props.deleteArticle(props._id)
-    : window.location.href = "/Editor";
-
+    : window.location.href = `/Editor/${props._id}`;
 
 }
 
@@ -34,6 +33,9 @@ const handleClickOptions = (action) =>{
                     {options &&<div  className="blogListItem_options">
                         <ul>
                             <li onClick={() => handleClickOptions("Eliminar")}>Eliminar</li>
+                        </ul>
+                        <ul>
+                            <li onClick={() => handleClickOptions("Editar")}>Editar</li>
                         </ul>
                     </div> }
 

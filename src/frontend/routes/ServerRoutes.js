@@ -36,7 +36,7 @@ const serverRoutes = (isLogged) =>{
         },
         {
             exact: true,
-            path: '/Editor',
+            path: '/Editor/:id',
             component: isLogged? Editor : Login,
         },
         {

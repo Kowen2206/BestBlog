@@ -7,8 +7,11 @@ import '../assets/styles/Atomos/UploadImageButton.scss';
 import HeaderImageEditor from '../components/HeaderImageEditor';
 import CkEditor from '../components/CkEditor';
 import useGetDate from '../hooks/useGetDate';
+import { useParams } from 'react-router-dom';
 
 const Editor = (props) => {
+
+  const {id} = useParams();
 
   const [articleError, setarticleError] = React.useState(false);
 
@@ -65,7 +68,7 @@ const Editor = (props) => {
       <Header />
       <div className="editor__container">
         <HeaderImageEditor />
-        <CkEditor />
+        <CkEditor articleId={id} />
         <button onClick={() => {
           handleSubmit()
         }}>

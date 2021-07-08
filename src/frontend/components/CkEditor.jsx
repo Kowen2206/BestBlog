@@ -1,18 +1,29 @@
 import React, {useRef, useEffect, useState} from 'react';
+import { connect } from 'react-redux';
+import { loadArticle } from '../actions';
+import { injectArticle } from '../actions';
 
-const ckEditor = () => {
+const ckEditor = ({articleId, articleView, loadArticle, injectArticle}) => {
 
     const editorRef = useRef();
     const [editorLoaded, setEditorLoaded] = useState(false);
     const { CKEditor, ClassicEditor } = editorRef.current || {};
     let save = false;
     const [text, setText] = useState("");
-
+    
+    let textOfArticleToEdit = articleView.ArticleContent || "Cargando...";
     
 
     useEffect(() => {
         let savedText;
-        savedText = window.sessionStorage.getItem("articleContent")? window.sessionStorage.getItem("articleContent") : "<p>Start writting here</p>"
+        if(window.sessionStorage.getItem("articleContent")){
+            savedText = window.sessionStorage.getItem("articleContent");
+        }else if(articleId){
+            loadArticle(articleId)
+            savedText = textOfArticleToEdit;
+        }else{
+            savedText = "<p>Escribe tu articulo aquí!</p>"
+        }
         setText(savedText);
         console.log(savedText)
         editorRef.current = {
@@ -20,7 +31,9 @@ const ckEditor = () => {
             ClassicEditor: require('@ckeditor/ckeditor5-build-classic')
         }
         setEditorLoaded(true);
-    }, []);
+        console.log("Ejecutando EFFECT DEL EDITOR")
+        return () => injectArticle([]);
+    }, [textOfArticleToEdit]);
 
     const handleEditorData = (data) =>{
         window.sessionStorage.setItem("articleContent", data);
@@ -65,4 +78,15 @@ const ckEditor = () => {
     );
 }
 
-export default ckEditor
+const mapStateToProps = state => {
+    return {
+        articleView: state.articleView
+    }
+}
+
+const mapDispatchToProps = {
+    loadArticle,
+    injectArticle
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ckEditor);

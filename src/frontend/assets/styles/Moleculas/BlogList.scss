@@ -144,16 +144,20 @@ color: $color-black;
 }
 
 .blogListItem_options{
-    background-color: aliceblue;
-    border: 5px solid aliceblue;
+    background-color: rgb(235, 239, 243);
+    border: 5px solid rgb(235, 239, 243);
     position: absolute;
-    right: -60px;
+    right: -70px;
     bottom: -30px;
-
 }
 
 .blogListItem_options li{
     cursor: pointer;
+    margin: 4px 0px;
+}
+
+.blogListItem_options li:hover{
+    background-color: $color-gray;
 }
 
 .blogListItem__OptionsDecoration{

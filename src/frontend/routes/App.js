@@ -23,7 +23,7 @@ const App = ({isLogged}) =>{
                 <Route exact path="/Blog/:id" component={BlogPost} />
                 <Route exact path="/Login" component={isLogged? Home : Login} />
                 <Route exact path="/Register" component={isLogged? Home : Login} />
-                <Route exact path="/Editor" component={isLogged? Editor : Login } />
+                <Route exact path="/Editor/:id" component={isLogged? Editor : Login } />
                 <Route exact path="/Profile/:id" component={UserProfile} />
                 <Route component={NotFound}/>
             </Switch>

@@ -7,26 +7,29 @@ export const saveArticle = payload => {
   }
 }
 
+//cargar un unico articulo apartir de su id y un type, el cual decide que action ejecutar
 export const loadArticle = payload =>{
+
   return (dispatch) =>{
       console.log("LoadArticle")
       axios.post('/api/article', {payload})
       .then(data =>{
         console.log("data");
         console.log(data.data)
-        dispatch(injectArticle(data.data))
-        
+        dispatch(injectArticle(data.data)); 
       })
       .catch(err => {  console.log("err"); console.log(err)});
   }
 }
 
+// Inyecta un articulo a el state del store
 export const injectArticle = (payload) =>{
   return{
     type: "injectArticle",
     payload
   }
 }
+
 
 const removeArticleFromState = (payload) =>{
   return{type: "deleteArticle", payload}

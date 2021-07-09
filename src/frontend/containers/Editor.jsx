@@ -1,22 +1,35 @@
 import React from 'react';
 import Header from '../components/Header';
 import { connect } from 'react-redux';
-import { createArticle, showWindowError } from '../actions';
+import { createArticle, showWindowError, loadArticle, updateArticle, injectArticle} from '../actions';
 import '../assets/styles/Moleculas/Editor.scss';
 import '../assets/styles/Atomos/UploadImageButton.scss';
 import HeaderImageEditor from '../components/HeaderImageEditor';
 import CkEditor from '../components/CkEditor';
 import useGetDate from '../hooks/useGetDate';
 import { useParams } from 'react-router-dom';
+import useDeleteFromSessionStorage from '../hooks/useDeleteFromSessionStorage';
 
 const Editor = (props) => {
-
   const {id} = useParams();
-
   const [articleError, setarticleError] = React.useState(false);
-
-  const {UserName, UserPhoto, UserId, showWindowError} = props
+  const {UserName, UserPhoto, UserId, showWindowError, articleView, loadArticle, injectArticle, createArticle, updateArticle} = props
   const getDate = useGetDate();
+  const removeArticle = useDeleteFromSessionStorage();
+
+  React.useEffect(() => {
+    console.log(id);
+    if(id !== "Nuevo"){
+      loadArticle(id)
+    }
+
+    return () =>{
+      if(id !== "Nuevo") {
+        removeArticle();
+      }
+      injectArticle([])
+    }
+  }, []);
 
   const getSumary = (articleContent) =>{
     if(articleContent.length <= 170) {
@@ -43,7 +56,8 @@ const Editor = (props) => {
       Preview == null? handleError("El contenido del articulo es demasiado corto")  : null;
       console.log(Title, ArticlePhoto, ArticleContent, Preview);
       if(!articleError){
-      handleCreateArticle({Title, ArticlePhoto, ArticleContent, Preview})
+        id === "Nuevo"? handleCreateArticle({Title, ArticlePhoto, ArticleContent, Preview}) :
+        handleUpdateArticle({Title, ArticlePhoto, ArticleContent, Preview})
       }
   }
 
@@ -60,15 +74,33 @@ const Editor = (props) => {
       UserPhoto,
       UserId
       }
-      props.createArticle(articleSchema)
+
+      createArticle(articleSchema) 
+  }
+
+  const handleUpdateArticle = ({Title, ArticlePhoto, ArticleContent, Preview}) =>{
+    const Date = getDate();
+    
+    const articleSchema = {
+      Title,
+      ArticleContent,
+      Preview,
+      UserName,
+      Date,
+      ArticlePhoto,
+      UserPhoto
+      }
+
+      updateArticle({id, payload: articleSchema})
+
   }
 
   return (
     <>
-      <Header />
+      <Header/>
       <div className="editor__container">
-        <HeaderImageEditor />
-        <CkEditor articleId={id} />
+        <HeaderImageEditor articlePhoto={articleView.ArticlePhoto || ""} />
+        <CkEditor articleContent={articleView.ArticleContent || ""} articleTitle={articleView.Title || ""}  articleId={id} />
         <button onClick={() => {
           handleSubmit()
         }}>
@@ -82,14 +114,18 @@ const Editor = (props) => {
 
 const mapDispatchToProps = {
   createArticle,
-  showWindowError
+  showWindowError,
+  loadArticle,
+  injectArticle,
+  updateArticle
 }
 
 const mapStateToProps = state => {
   return {
       UserName: state.user.name,
       UserPhoto: state.user.photo,
-      UserId: state.user.id
+      UserId: state.user.id,
+      articleView: state.articleView
   }
 }
 

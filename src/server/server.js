@@ -18,6 +18,8 @@ import firebase from './lib/firebase';
 import multer from 'multer';
 import cors from 'cors';
 
+//posible solucion, usar el next para los errors.
+
 require('./utils/auth/strategies/basic');
 const upload = multer({
     storage: multer.memoryStorage()
@@ -213,9 +215,26 @@ app.post("/api/articles-user", async function (req, res, next){
     }
 });
 
+app.post('/api/articles/updateArticle', async function(req, res, next) {
+    try {
+        console.log(req.body)
+        const {id, payload} = req.body;
+        const ArticleStatus = await axios.put(`${process.env.API_URL}/api/article/${id}`, payload);
+        res.status(200).send(ArticleStatus.data);
+    }
+    catch (err) {
+        console.log("ERROR UPDATE ARTICLE ");
+        console.log(err);
+        res.status(500).send(err);
+        next(err)
+    }
+});
+
 //elimina un articulo de manera definitiva de mongo
 app.post('/api/deleteArticle', async function (req, res, next) {
-    axios.delete(`${process.env.API_URL}/api/article/${req.body.idArticle}`).then(response => res.status(200).send(response.data)).catch(res => console.log(res));
+    axios.delete(`${process.env.API_URL}/api/article/${req.body.idArticle}`)
+    .then(response => res.status(200).send(response.data))
+    .catch(res => console.log(res));
 })
 
 //inserta un articulo a mongo

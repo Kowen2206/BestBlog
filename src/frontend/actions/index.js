@@ -1,4 +1,5 @@
 import axios from 'axios';
+import useDeleteFromSessionStorage from '../hooks/useDeleteFromSessionStorage';
 
 export const saveArticle = payload => {
   return {
@@ -9,7 +10,7 @@ export const saveArticle = payload => {
 
 //cargar un unico articulo apartir de su id y un type, el cual decide que action ejecutar
 export const loadArticle = payload =>{
-
+  console.log("vete a la mierda")
   return (dispatch) =>{
       console.log("LoadArticle")
       axios.post('/api/article', {payload})
@@ -41,9 +42,9 @@ export const createArticle = (payload) => {
   return (dispatch) => {
         axios.post('/api/articles/createArticle', payload)
         .then( () =>{
-        window.sessionStorage.removeItem("articleContent");
-        window.sessionStorage.removeItem("articleTitle");
-        window.sessionStorage.removeItem("articleImage");})
+         const removeArticle = useDeleteFromSessionStorage();
+         removeArticle();
+        })
         .then( () => window.setTimeout(() =>window.location.href = "/Home", 1000))
         .catch((err) => { 
           const message = "Error al crear el articulo";
@@ -62,6 +63,23 @@ export const deleteArticle = (idArticle) =>{
         console.log(idArticle)
         dispatch(removeArticleFromState(idArticle))})
       .catch(res=> console.log("err \n" + res));
+  }
+}
+
+export const updateArticle = ({payload, id}) =>{
+  console.log(payload);
+  return (dispatch) => {
+        axios.post(`/api/articles/updateArticle`, {id, payload})
+       /* .then( () =>{
+         const removeArticle = useDeleteFromSessionStorage();
+         removeArticle();
+        }) */
+        .then( () => window.setTimeout(() =>window.location.href = "/Home", 1000))
+        .catch((err) => { 
+          const message = "Error al crear el articulo";
+          console.log(message);
+          console.log(err.message); 
+        });
   }
 }
 

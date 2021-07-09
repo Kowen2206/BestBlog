@@ -36,7 +36,7 @@ const Header = (props) => {
             <nav className="header__nav header__nav-desktop">
                 <ul>
                     <Link to="/Home"> <li>HOME</li> </Link>
-                    <Link to="/Editor"> <li>CREA TU BLOG</li> </Link>
+                    <Link to="/Editor/Nuevo"> <li>CREA TU BLOG</li> </Link>
                     {props.session && <Link to={`/Profile/${props.userId}`}><li>PERFIL</li> </Link>}
                     {props.session ? <Link onClick={() => { handleLogOut(); }}> <li>LogOut</li> </Link> : <Link to="/Login"> <li>REGISTRATE /LOGIN</li> </Link>}
                     <Link to="/"> <li>ABOUT</li> </Link>

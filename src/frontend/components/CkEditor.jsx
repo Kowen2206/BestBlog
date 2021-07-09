@@ -1,29 +1,27 @@
 import React, {useRef, useEffect, useState} from 'react';
 import { connect } from 'react-redux';
 import { loadArticle } from '../actions';
-import { injectArticle } from '../actions';
+import useDeleteFromSessionStorage from '../hooks/useDeleteFromSessionStorage';
 
-const ckEditor = ({articleId, articleView, loadArticle, injectArticle}) => {
+const ckEditor = ({articleContent, articleTitle}) => {
 
     const editorRef = useRef();
     const [editorLoaded, setEditorLoaded] = useState(false);
     const { CKEditor, ClassicEditor } = editorRef.current || {};
+    const [title, setTitle] = useState(false)
     let save = false;
     const [text, setText] = useState("");
-    
-    let textOfArticleToEdit = articleView.ArticleContent || "Cargando...";
-    
+    let textOfArticleToEdit = articleContent;
 
     useEffect(() => {
         let savedText;
-        if(window.sessionStorage.getItem("articleContent")){
+        if(window.sessionStorage.getItem("articleContent") && articleContent === ""){
             savedText = window.sessionStorage.getItem("articleContent");
-        }else if(articleId){
-            loadArticle(articleId)
-            savedText = textOfArticleToEdit;
         }else{
             savedText = "<p>Escribe tu articulo aquí!</p>"
         }
+
+        articleTitle !== ""? window.sessionStorage.setItem("articleTitle", title.target.value) : null
         setText(savedText);
         console.log(savedText)
         editorRef.current = {
@@ -31,9 +29,7 @@ const ckEditor = ({articleId, articleView, loadArticle, injectArticle}) => {
             ClassicEditor: require('@ckeditor/ckeditor5-build-classic')
         }
         setEditorLoaded(true);
-        console.log("Ejecutando EFFECT DEL EDITOR")
-        return () => injectArticle([]);
-    }, [textOfArticleToEdit]);
+    }, []);
 
     const handleEditorData = (data) =>{
         window.sessionStorage.setItem("articleContent", data);
@@ -42,14 +38,20 @@ const ckEditor = ({articleId, articleView, loadArticle, injectArticle}) => {
     return (
         <>
             <label htmlFor="Title">Escribe un titulo</label> <br/>
-            <input onChange={ (title) => window.sessionStorage.setItem("articleTitle", title.target.value) } className="Editorcontainer_item inputTitle" name="Title" id="Title"/>
+            <input onChange={ (newtitle) =>  {
+                setTitle(newtitle.target.value);
+                console.log("newtitle.target.value")
+                console.log(newtitle.target.value)
+                window.sessionStorage.setItem("articleTitle", newtitle.target.value)
+            }}
+             className="Editorcontainer_item inputTitle" name="Title" id="Title" value={!title? articleTitle : title}/>
             <div >
                 <div className="Editorcontainer_item">
                     { 
                         editorLoaded ? 
                             <CKEditor 
                                 editor={ClassicEditor} 
-                                data= {text}
+                                data= {textOfArticleToEdit !== ""? textOfArticleToEdit : text}
                                 onReady={editor => { 
                                     // You can store the "editor" and use when it is needed. 
                                     console.log('Editor is ready to use!', editor); 
@@ -78,15 +80,8 @@ const ckEditor = ({articleId, articleView, loadArticle, injectArticle}) => {
     );
 }
 
-const mapStateToProps = state => {
-    return {
-        articleView: state.articleView
-    }
-}
-
 const mapDispatchToProps = {
-    loadArticle,
-    injectArticle
+    loadArticle
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ckEditor);
+export default connect(null, mapDispatchToProps)(ckEditor);

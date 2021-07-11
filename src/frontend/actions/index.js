@@ -70,10 +70,10 @@ export const updateArticle = ({payload, id}) =>{
   console.log(payload);
   return (dispatch) => {
         axios.post(`/api/articles/updateArticle`, {id, payload})
-       /* .then( () =>{
+       .then( () =>{
          const removeArticle = useDeleteFromSessionStorage();
          removeArticle();
-        }) */
+        }) 
         .then( () => window.setTimeout(() =>window.location.href = "/Home", 1000))
         .catch((err) => { 
           const message = "Error al crear el articulo";

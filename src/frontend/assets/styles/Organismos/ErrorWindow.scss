@@ -9,14 +9,23 @@
     top: 30%;
     left: 10%;
     background-color: $color-white;
-    border-radius: 12px;
     border: solid 1px;
     text-align: center;
     @extend %flex-center;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-evenly;
 
 }
+
+.window-error-container h1{
+    position: absolute;
+    top: 0px;
+    padding-top: 5px;
+    background-color: $color-black;
+    color: $color-white;
+    width: 100.1%;
+}
+
 
 .window-error-container button{
     background-color: rgb(57, 123, 189);

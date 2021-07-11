@@ -10,6 +10,7 @@ import useGetDate from '../hooks/useGetDate';
 import { useParams } from 'react-router-dom';
 import useDeleteFromSessionStorage from '../hooks/useDeleteFromSessionStorage';
 
+//papillon
 const Editor = (props) => {
   const {id} = useParams();
   const [articleError, setarticleError] = React.useState(false);
@@ -55,7 +56,10 @@ const Editor = (props) => {
       ArticlePhoto == null? handleError("debes seleccionar una foto") :
       Preview == null? handleError("El contenido del articulo es demasiado corto")  : null;
       console.log(Title, ArticlePhoto, ArticleContent, Preview);
+
       if(!articleError){
+        console.log("Title, ArticlePhoto, ArticleContent, Preview");
+        console.log(Title, ArticlePhoto, ArticleContent, Preview);
         id === "Nuevo"? handleCreateArticle({Title, ArticlePhoto, ArticleContent, Preview}) :
         handleUpdateArticle({Title, ArticlePhoto, ArticleContent, Preview})
       }

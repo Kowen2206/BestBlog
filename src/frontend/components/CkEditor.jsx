@@ -1,7 +1,6 @@
 import React, {useRef, useEffect, useState} from 'react';
 import { connect } from 'react-redux';
 import { loadArticle } from '../actions';
-import useDeleteFromSessionStorage from '../hooks/useDeleteFromSessionStorage';
 
 const ckEditor = ({articleContent, articleTitle}) => {
 
@@ -21,7 +20,7 @@ const ckEditor = ({articleContent, articleTitle}) => {
             savedText = "<p>Escribe tu articulo aquí!</p>"
         }
 
-        articleTitle !== ""? window.sessionStorage.setItem("articleTitle", title.target.value) : null
+        articleTitle !== ""? window.sessionStorage.setItem("articleTitle", articleTitle) : null
         setText(savedText);
         console.log(savedText)
         editorRef.current = {
@@ -29,7 +28,7 @@ const ckEditor = ({articleContent, articleTitle}) => {
             ClassicEditor: require('@ckeditor/ckeditor5-build-classic')
         }
         setEditorLoaded(true);
-    }, []);
+    }, [articleTitle]);
 
     const handleEditorData = (data) =>{
         window.sessionStorage.setItem("articleContent", data);

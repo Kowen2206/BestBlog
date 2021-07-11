@@ -13,7 +13,7 @@ import useDeleteFromSessionStorage from '../hooks/useDeleteFromSessionStorage';
 //papillon
 const Editor = (props) => {
   const {id} = useParams();
-  const [articleError, setarticleError] = React.useState(false);
+  let articleError = false;
   const {UserName, UserPhoto, UserId, showWindowError, articleView, loadArticle, injectArticle, createArticle, updateArticle} = props
   const getDate = useGetDate();
   const removeArticle = useDeleteFromSessionStorage();
@@ -41,8 +41,8 @@ const Editor = (props) => {
   }
 
   const handleError = (errorMessage) =>{
-    setarticleError(true);
-    showWindowError([true, errorMessage])
+    articleError = true;
+    showWindowError([true, errorMessage]);
   }
 
   const handleSubmit = () =>{
@@ -54,14 +54,17 @@ const Editor = (props) => {
       ArticleContent == null? handleError("El contenido del articulo no puede estar vació") : 
       Title == null? handleError("debes agregar un titulo")  :
       ArticlePhoto == null? handleError("debes seleccionar una foto") :
-      Preview == null? handleError("El contenido del articulo es demasiado corto")  : null;
+      Preview == null? handleError("El contenido del articulo es demasiado corto")  : articleError = false;
       console.log(Title, ArticlePhoto, ArticleContent, Preview);
 
-      if(!articleError){
+      if(articleError === false){
+        console.log("\n\n\n NO PUTO ERROR \n\n\n")
         console.log("Title, ArticlePhoto, ArticleContent, Preview");
         console.log(Title, ArticlePhoto, ArticleContent, Preview);
         id === "Nuevo"? handleCreateArticle({Title, ArticlePhoto, ArticleContent, Preview}) :
         handleUpdateArticle({Title, ArticlePhoto, ArticleContent, Preview})
+      }else{
+        console.log("\n\n\n PUTO ERROR \n\n\n")
       }
   }
 

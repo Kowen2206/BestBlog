@@ -38,7 +38,7 @@ const HeaderImageEditor = ({uploadImage, articlePhoto}) => {
             <label className="Editorcontainer_item ImageButton" htmlFor="Image">{HeaderArticleImage !== "" ? "Subir una imagen" : "Cambiar imagen"}</label>
             <input className="InputFile Editorcontainer_item" accept="image/*" onChange={ data => handleImage(data)}
             type="file" id="Image" name="Image" />
-            <div className="Editorcontainer_item" > {HeaderArticleImage === "" ? "Debes Seleccionar una imagen" : "Gracias puta barata uwu"}</div>
+            <div className="Editorcontainer_item" > {HeaderArticleImage === "" ? "Debes Seleccionar una imagen" : ""}</div>
         </div>
     );
 }

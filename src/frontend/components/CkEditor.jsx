@@ -39,8 +39,6 @@ const ckEditor = ({articleContent, articleTitle}) => {
             <label htmlFor="Title">Escribe un titulo</label> <br/>
             <input onChange={ (newtitle) =>  {
                 setTitle(newtitle.target.value);
-                console.log("newtitle.target.value")
-                console.log(newtitle.target.value)
                 window.sessionStorage.setItem("articleTitle", newtitle.target.value)
             }}
              className="Editorcontainer_item inputTitle" name="Title" id="Title" value={!title? articleTitle : title}/>

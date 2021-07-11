@@ -107,7 +107,6 @@ export const registerhttp = (redirectUrl, payload) => {
 
 export const sigInhttp = (redirectUrl, { email, password }) => {
   console.log(email, password)
-  console.log("data aquí wey0")
   return (dispatch) => {
     axios({
       url: '/auth/sign-in',

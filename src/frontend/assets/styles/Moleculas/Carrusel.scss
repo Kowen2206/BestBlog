@@ -15,27 +15,27 @@
 
 .carrusel__container h1{
     font-size: 24px;
+    height: auto;
+    padding: 10px 0px;
     position: absolute;
-    bottom: 20px;
-    left: 15%;
+    bottom: 0px;
+    left: 0px;
     z-index: 1;
     color: $color-white;
-    text-shadow: 4px 3px #2f2f2f;
+    width: 100%;
+    padding-left: 10%;
+    padding-top: 1%;
+    background-color: rgba(0, 0, 0, 0.694);
+    
     @include respond-to(700px){
     font-size: 40px;
+    height: auto;
     }
 }
 
-.carrusel__container h1:hover{
-    text-shadow: 4px 3px #000000;
-}
 
 .carrusel__container h1:hover{
-    font-size: 24;
-    position: absolute;
-    bottom: 20px;
-    z-index: 1;
-    background-color: rgba(0, 0, 0, 0.074);
+    background-color: $color-black;
     @include respond-to(700px){
         //margin-bottom: 20%;
     }

@@ -52,3 +52,9 @@ $listBlog-heigth: 80%;
     @content;
 }
 }
+
+@mixin  respond-to-width ($width) {
+  @media only screen and (min-width: $width){
+    @content;
+}
+}

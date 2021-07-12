@@ -64,11 +64,16 @@ color: $color-black;
     width: 100%;
 }
 
-.blogListitem h1{
+.linkItem {
+    color: $color-black;
     width: 100%;
-    text-align: left;
-    margin-bottom: 10px;
-    font-size: 16px;
+}
+
+.linkItem h1{
+    color: $color-black;
+    width: 100%;
+    height: 70px;
+    overflow-y: hidden;
 }
 
 .blogListItem__image__link{
@@ -79,7 +84,6 @@ color: $color-black;
 .blogListItem__image__link img{
     width: 80vw;
     height: 80vw;
-    padding-bottom: 10px;
     margin-bottom: 10px;
     object-fit: cover;
     @include respond-to(700px){

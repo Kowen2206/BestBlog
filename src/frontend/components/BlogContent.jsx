@@ -23,6 +23,7 @@ const BlogContent = (props) => {
         <>
             <HeaderImage Image={props.articleView.ArticlePhoto} />
             <h1 className="blogContent_title"> {props.articleView.Title} </h1>
+            <hr />
             <div className="blogContent__container" onClick={() => console.log(props)} dangerouslySetInnerHTML={{ __html: props.articleView.ArticleContent }}>
             </div>
         </>

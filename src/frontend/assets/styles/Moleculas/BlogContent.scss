@@ -2,34 +2,54 @@
 
 .blogContent_title{
     text-align: left;
-    margin: 50px 15%;
+    margin: 5% 15% 1%;
+    width: 70%;
+}
+hr{
+    width: 70%;
+    margin-left: 15%;
+    margin-bottom: 40px;
 }
 
 .blogContent__container{
     width: 70vw;
     min-height: 100vh;
     margin-left: 15vw;
-    list-style-type: style;
+    list-style: inside;
+    margin-bottom: 10vh;
+    
 }
 
 .blogContent__container li{
-    list-style: circle;
+    list-style: inside;
 }
 
 .blogContent__container table, td{
     border: solid 1px;
     border-collapse: collapse;
+    padding: .4em;
 }
 
 .blogContent__container h1{
-    
-    font-size: 22;
-
+    font-size: 24px;
+    border-bottom: 1px solid $color-gray;
+    padding-bottom: 8px;
 }
 
 .blogContent__container h2{
     
-    font-size: 19;
+    font-size: 22px;
+    border-bottom: 1px solid $color-gray;
+    padding-bottom: 8px;
+
+}
+
+.blogContent__container h3 strong{
+    
+    font-size: 22px;
+    border-bottom: 1px solid $color-gray;
+    padding-bottom: 8px;
+
 
 }
 
@@ -40,3 +60,16 @@
 
 }
 
+.blogContent__container p{
+   margin-bottom: 5px;
+}
+
+.image-style-side{
+    float: none;
+    padding: 0px;
+    @include respond-to-width(800px){
+        float: right;
+        padding: 15px;
+    }
+
+}

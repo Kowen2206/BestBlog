@@ -1,13 +1,13 @@
 @import '../Lib/Vars.scss';
 
 .window-error-container{
-    width: 80vw;
+    width: 70vw;
     padding: 0% 5%;
     height: 30vh;
     position: absolute;
     z-index: 1000;
     top: 30%;
-    left: 10%;
+    left: 15%;
     background-color: $color-white;
     border: solid 1px;
     text-align: center;
@@ -28,7 +28,7 @@
 
 
 .window-error-container button{
-    background-color: rgb(57, 123, 189);
+    background-color: #555555;
     color: aliceblue;
     border-radius: 3px;
     border: solid 1px $color-black;

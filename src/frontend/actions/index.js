@@ -10,13 +10,9 @@ export const saveArticle = payload => {
 
 //cargar un unico articulo apartir de su id y un type, el cual decide que action ejecutar
 export const loadArticle = payload =>{
-  console.log("vete a la mierda")
   return (dispatch) =>{
-      console.log("LoadArticle")
       axios.post('/api/article', {payload})
       .then(data =>{
-        console.log("data");
-        console.log(data.data)
         dispatch(injectArticle(data.data)); 
       })
       .catch(err => {  console.log("err"); console.log(err)});
@@ -31,14 +27,11 @@ export const injectArticle = (payload) =>{
   }
 }
 
-
 const removeArticleFromState = (payload) =>{
   return{type: "deleteArticle", payload}
 }
 
 export const createArticle = (payload) => {
-  console.log("ALGO");
-  console.log(payload);
   return (dispatch) => {
         axios.post('/api/articles/createArticle', payload)
         .then( () =>{
@@ -56,18 +49,14 @@ export const createArticle = (payload) => {
 
 export const deleteArticle = (idArticle) =>{
   return (dispatch) =>{
-      console.log(idArticle)
       axios.post('/api/deleteArticle', {idArticle})
       .then(() => {
-        console.log("DeleteArticle")
-        console.log(idArticle)
         dispatch(removeArticleFromState(idArticle))})
       .catch(res=> console.log("err \n" + res));
   }
 }
 
 export const updateArticle = ({payload, id}) =>{
-  console.log(payload);
   return (dispatch) => {
         axios.post(`/api/articles/updateArticle`, {id, payload})
        .then( () =>{
@@ -100,13 +89,12 @@ export const registerhttp = (redirectUrl, payload) => {
     }).then((data) =>{
       axios.post("/auth/sign-up", {...payload, photo: data.data.url}).
       then(() => window.location.href = redirectUrl).
-      catch((err) => { console.log("here is an error" + err) });
+      catch((err) => { console.log("Error:" + err) });
     });
   }
 }
 
 export const sigInhttp = (redirectUrl, { email, password }) => {
-  console.log(email, password)
   return (dispatch) => {
     axios({
       url: '/auth/sign-in',

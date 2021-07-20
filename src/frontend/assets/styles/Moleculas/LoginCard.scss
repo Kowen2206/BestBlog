@@ -28,8 +28,7 @@
 .Login__Container input{
     width: 100%;
     margin: map-get($marging , vertical);
-    border: 0px;
-    border-bottom: 1px solid $color-black;
+    border: 1px;
 }
 
 .login__card{

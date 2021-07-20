@@ -11,8 +11,6 @@ import Layout from '../containers/Layout';
 
 const App = ({isLogged}) =>{
     return (
-   
-    
     <BrowserRouter>
         <Layout>
             <Switch>

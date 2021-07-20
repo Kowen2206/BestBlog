@@ -4,12 +4,11 @@
     @extend %flex-center;
     flex-wrap: wrap;
     align-items: flex-start;
-    //margin-bottom: 15%;
     outline: 3% $color-white;
     overflow: hidden;
     position: relative;
+    width: 100%;
     @include respond-to(700px){
-        //margin-bottom: 20%;
     }
 }
 

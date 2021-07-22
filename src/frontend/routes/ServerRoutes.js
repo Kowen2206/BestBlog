@@ -42,7 +42,7 @@ const serverRoutes = (isLogged) =>{
         {
             exact: true,
             path: '/Profile/:id',
-            component: isLogged? UserProfile : Login,
+            component: UserProfile,
         },
         {
             exact: true,

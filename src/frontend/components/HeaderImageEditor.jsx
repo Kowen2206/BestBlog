@@ -6,16 +6,16 @@ import useCreateImageUrlFromInput from '../hooks/useCreateImageUrlFromInput';
 
 const HeaderImageEditor = ({uploadImage, articlePhoto}) => {
     useEffect(()=>{
-        let image = articlePhoto === ""? window.sessionStorage.getItem("articleImage")?window.sessionStorage.getItem("articleImage"): articlePhoto : articlePhoto
+        let image = articlePhoto === ""? window.localStorage.getItem("articleImage")?window.localStorage.getItem("articleImage"): articlePhoto : articlePhoto
        if (articlePhoto === "") {
-           if(window.sessionStorage.getItem("articleImage")){
-            image = window.sessionStorage.getItem("articleImage")
+           if(window.localStorage.getItem("articleImage")){
+            image = window.localStorage.getItem("articleImage")
            }else{
             image = articlePhoto
            }
        }else{
         image = articlePhoto
-        window.sessionStorage.setItem("articleImage", articlePhoto);
+        window.localStorage.setItem("articleImage", articlePhoto);
        }
        
         SetHeaderArticleImage(image)

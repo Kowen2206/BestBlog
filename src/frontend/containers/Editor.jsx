@@ -8,7 +8,7 @@ import HeaderImageEditor from '../components/HeaderImageEditor';
 import CkEditor from '../components/CkEditor';
 import useGetDate from '../hooks/useGetDate';
 import { useParams } from 'react-router-dom';
-import useDeleteFromSessionStorage from '../hooks/useDeleteFromSessionStorage';
+import useDeleteFromLocalStorage from '../hooks/useDeleteFromLocalStorage';
 
 //papillon
 const Editor = (props) => {
@@ -16,7 +16,7 @@ const Editor = (props) => {
   let articleError = false;
   const {UserName, UserPhoto, UserId, showWindowError, articleView, loadArticle, injectArticle, createArticle, updateArticle} = props
   const getDate = useGetDate();
-  const removeArticle = useDeleteFromSessionStorage();
+  const removeArticle = useDeleteFromLocalStorage();
 
   React.useEffect(() => {
     console.log(id);
@@ -46,9 +46,9 @@ const Editor = (props) => {
   }
 
   const handleSubmit = () =>{
-      const ArticleContent = window.sessionStorage.getItem("articleContent") || null;
-      const Title = window.sessionStorage.getItem("articleTitle") || null;
-      const ArticlePhoto =  window.sessionStorage.getItem("articleImage") || null;
+      const ArticleContent = window.localStorage.getItem("articleContent") || null;
+      const Title = window.localStorage.getItem("articleTitle") || null;
+      const ArticlePhoto =  window.localStorage.getItem("articleImage") || null;
       const Preview = ArticleContent != null? getSumary(ArticleContent) : null;
 
       ArticleContent == null? handleError("El contenido del articulo no puede estar vació") : 

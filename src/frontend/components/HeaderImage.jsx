@@ -5,7 +5,7 @@ import "../assets/styles/Moleculas/HeaderImage.scss"
 const HeaderImage = ({Image})=>{
     return(
 
-        <div className="headerImage__container">
+        <div id="anclaHeader" className="headerImage__container">
             <div className="headerImage__button">
             </div>
             <article className="headerImage__item">

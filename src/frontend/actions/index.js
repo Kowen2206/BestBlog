@@ -1,5 +1,5 @@
 import axios from 'axios';
-import useDeleteFromSessionStorage from '../hooks/useDeleteFromSessionStorage';
+import useDeleteFromLocalStorage from '../hooks/useDeleteFromLocalStorage';
 
 export const saveArticle = payload => {
   return {
@@ -35,7 +35,7 @@ export const createArticle = (payload) => {
   return (dispatch) => {
         axios.post('/api/articles/createArticle', payload)
         .then( () =>{
-         const removeArticle = useDeleteFromSessionStorage();
+         const removeArticle = useDeleteFromLocalStorage();
          removeArticle();
         })
         .then( () => window.setTimeout(() =>window.location.href = "/Home", 1000))
@@ -60,7 +60,7 @@ export const updateArticle = ({payload, id}) =>{
   return (dispatch) => {
         axios.post(`/api/articles/updateArticle`, {id, payload})
        .then( () =>{
-         const removeArticle = useDeleteFromSessionStorage();
+         const removeArticle = useDeleteFromLocalStorage();
          removeArticle();
         }) 
         .then( () => window.setTimeout(() =>window.location.href = "/Home", 1000))
@@ -109,9 +109,9 @@ export const sigInhttp = (redirectUrl, { email, password }) => {
         document.cookie = `id=${data.user.id}`
         document.cookie = `photo=${data.user.photo}`
         dispatch(signIn({ data }))
-      }).then(()=>window.location.href = redirectUrl)
-      .catch((err) => {
-        console.log(err)
+      })
+      .then(()=>window.location.href = redirectUrl)
+      .catch(() => {
         dispatch(showWindowError("Error al inciar sessión"))
       });
   }
@@ -128,7 +128,7 @@ return ()=>{
       }
     }).then(data => {
       console.log("data " + JSON.stringify(data.data));
-      window.sessionStorage.setItem(key, data.data.url);
+      window.localStorage.setItem(key, data.data.url);
    })
 }
 }

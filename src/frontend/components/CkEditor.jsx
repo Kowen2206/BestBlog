@@ -14,13 +14,13 @@ const ckEditor = ({articleContent, articleTitle}) => {
 
     useEffect(() => {
         let savedText;
-        if(window.sessionStorage.getItem("articleContent") && articleContent === ""){
-            savedText = window.sessionStorage.getItem("articleContent");
+        if(window.localStorage.getItem("articleContent") && articleContent === ""){
+            savedText = window.localStorage.getItem("articleContent");
         }else{
             savedText = "<p>Escribe tu articulo aquí!</p>"
         }
 
-        articleTitle !== ""? window.sessionStorage.setItem("articleTitle", articleTitle) : null
+        articleTitle !== ""? window.localStorage.setItem("articleTitle", articleTitle) : null
         setText(savedText);
         console.log(savedText)
         editorRef.current = {
@@ -31,7 +31,7 @@ const ckEditor = ({articleContent, articleTitle}) => {
     }, [articleTitle]);
 
     const handleEditorData = (data) =>{
-        window.sessionStorage.setItem("articleContent", data);
+        window.localStorage.setItem("articleContent", data);
     }
 
     return (
@@ -39,7 +39,7 @@ const ckEditor = ({articleContent, articleTitle}) => {
             <label htmlFor="Title">Escribe un titulo</label> <br/>
             <input onChange={ (newtitle) =>  {
                 setTitle(newtitle.target.value);
-                window.sessionStorage.setItem("articleTitle", newtitle.target.value)
+                window.localStorage.setItem("articleTitle", newtitle.target.value)
             }}
              className="Editorcontainer_item inputTitle" name="Title" id="Title" value={!title? articleTitle : title}/>
             <div >

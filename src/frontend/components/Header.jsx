@@ -26,8 +26,8 @@ const Header = (props) => {
     }
 
     return (
-        <div className="header__container">
-            <a className="header_logo"><h1>BESTBLOG</h1></a>
+        <header className="header__container">
+            <Link to="/Home" className="header_logo"><h1>BESTBLOG</h1></Link>
             <div className="header__togleButton">
                 <div onClick={() => handleTogle()} className="header__togleButton__item"></div>
             </div>
@@ -55,7 +55,7 @@ const Header = (props) => {
                 </nav>
             }
 
-        </div>
+        </header>
     );
 
 }

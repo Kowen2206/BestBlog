@@ -112,6 +112,7 @@ export const sigInhttp = (redirectUrl, { email, password }) => {
       })
       .then(()=>window.location.href = redirectUrl)
       .catch(() => {
+        console.log("ERROR QUE NO DEBERIA MOSTRAR SOLO UN PUTA R")
         dispatch(showWindowError("Error al inciar sessión"))
       });
   }

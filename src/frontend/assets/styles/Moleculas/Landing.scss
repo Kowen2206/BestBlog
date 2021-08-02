@@ -21,11 +21,15 @@ h1 span{
     height: 100%;
     background-color: $color-white;
     border-left: 1px solid $color-black;
-    animation: maquina 5s 1 alternate steps(30);
+    animation: maquina 5s 1 alternate steps(18);
+    animation-iteration-count: infinite;
 }
 
 @keyframes maquina {
-    from{
+    0%{
         width: 100%;
+    }
+    50%{
+        width: 0%;
     }
 }

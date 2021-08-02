@@ -8,6 +8,7 @@
     overflow: hidden;
     position: relative;
     width: 100%;
+    background-color: black;
     @include respond-to(700px){
     }
 }

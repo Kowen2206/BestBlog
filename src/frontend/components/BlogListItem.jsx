@@ -4,8 +4,6 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
 import {deleteArticle} from '../actions';
 
-const imageURL = "https://scontent-qro1-1.xx.fbcdn.net/v/t1.6435-9/48379979_2024468410980028_1855760733292199936_n.jpg?_nc_cat=100&ccb=1-3&_nc_sid=174925&_nc_eui2=AeFaMXIWqOznEPjhgirxlv2lpLDRR1vtDGOksNFHW-0MYwxGIDQjgxiV4rbuwTFzjVQkaPg8XaTt6kUGi1tviUpw&_nc_ohc=_rhDjouV_DsAX8l2x2V&_nc_ht=scontent-qro1-1.xx&oh=6d46fcb1120dec664531b204a94b78a2&oe=60B359EF;" 
-
 const BlogListItem = (props) =>{
 
 const [options, optionsState] = useState(false);

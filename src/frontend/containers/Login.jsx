@@ -1,5 +1,5 @@
 import React from 'react';
-import LoginCard from "../components/LoginCard";
+import LoginComponent from "../components/LoginComponent";
 import '../assets/styles/Moleculas/LoginCard.scss';
 import '../assets/styles/Atomos/UploadImageButton.scss';
 import Header from '../components/Header';
@@ -11,7 +11,7 @@ const Login = () =>{
         <>
             <Header/>
             <div className="Login__Container">
-                <LoginCard/>
+                <LoginComponent/>
             </div>
             <Footer/>
         </>

@@ -1,7 +1,7 @@
 import React from 'react';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import About from '../containers/About';
-import BlogPost from '../containers/BlogPost';
+import Post from '../containers/Post';
 import Home from '../containers/Home';
 import Login from '../containers/Login';
 import NotFound from '../containers/NotFound';
@@ -18,7 +18,7 @@ const App = ({isLogged}) =>{
                 <Route exact path="/About" component={About} /> 
                 <Route exact path="/Home" component={Home} />
                 <Route exact path="/Blogs" component={Home} />
-                <Route exact path="/Blog/:id" component={BlogPost} />
+                <Route exact path="/Blog/:id" component={Post} />
                 <Route exact path="/Login" component={isLogged? Home : Login} />
                 <Route exact path="/Register" component={isLogged? Home : Login} />
                 <Route exact path="/Editor/:id" component={isLogged? Editor : Login } />

@@ -65,7 +65,7 @@ const ckEditor = ({articleContent, articleTitle}) => {
                                 }}
                                 config={{
                                     ckfinder: {
-                                        uploadUrl: 'https://the-bestblog.herokuapp.com/uploadCkeditorImage',
+                                        uploadUrl: 'https://the-bestblog.herokuapp.com/db/uploadCkeditorImage',
                                         removePlugins: ['Heading', 'MediaEmbed'],
                                     }
                                 }}

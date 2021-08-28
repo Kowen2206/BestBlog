@@ -1,5 +1,5 @@
 import '../assets/styles/Organismos/Header.scss';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { LogOut } from '../actions'
@@ -15,7 +15,7 @@ const Header = (props) => {
     }
 
     const handleLogOut = () => {
-
+        console.log("logout")
         props.LogOut();
         document.cookie = "email=";
         document.cookie = "name=";
@@ -36,8 +36,17 @@ const Header = (props) => {
                 <ul>
                     <Link to="/Home"> <li>HOME</li> </Link>
                     <Link to="/Editor/Nuevo"> <li>CREA TU BLOG</li> </Link>
-                    {props.session && <Link to={`/Profile/${props.userId}`}><li>PERFIL</li> </Link>}
-                    {props.session ? <Link onClick={() => { handleLogOut(); }}> <li>LogOut</li> </Link> : <Link to="/Login"> <li>REGISTRATE /LOGIN</li> </Link>}
+                    {props.session &&
+                     <Link to={`/Profile/${props.userId}`}>
+                         <li>PERFIL</li> 
+                    </Link>}
+                    {props.session ? 
+                    <a href="#" onClick={() => { handleLogOut(); }}> 
+                    <li>LogOut</li> 
+                    </a> : 
+                    <Link to="/Login">
+                         <li>REGISTRATE /LOGIN</li>
+                     </Link>}
                     <Link to="/"> <li>ABOUT</li> </Link>
                 </ul>
             </nav>
@@ -48,8 +57,11 @@ const Header = (props) => {
                     <ul>
                         <Link to="/Home"> <li>HOME</li> </Link>
                         <Link to="/Editor/Nuevor"> <li>{props.session? "CREAR ARTICULO" : "CREA UN BLOG"}</li> </Link>
-                        {props.session && <Link to={`/Profile/${props.userId}`}><li>PERFIL</li> </Link>}
-                        {props.session ? <Link onClick={handleLogOut} to="/"> <li>LogOut</li> </Link> : <Link to="/Login"> <li>REGISTRATE /LOGIN</li> </Link>}
+                        {props.session && 
+                        <Link to={`/Profile/${props.userId}`}> <li>PERFIL</li> </Link>}
+                        {props.session ? 
+                        <Link onClick={handleLogOut} to="/"> <li>LogOut</li> </Link> : 
+                        <Link to="/Login"> <li>REGISTRATE /LOGIN</li> </Link>}
                         <Link to="/"> <li>ABOUT</li> </Link>
                     </ul>
                 </nav>

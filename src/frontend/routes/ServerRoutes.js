@@ -1,5 +1,5 @@
 import About from '../containers/About';
-import BlogPost from '../containers/BlogPost';
+import Post from '../containers/Post';
 import Home from '../containers/Home';
 import Login from '../containers/Login';
 import NotFound from '../containers/NotFound';
@@ -8,7 +8,11 @@ import UserProfile from '../containers/UserProfile';
 
 const serverRoutes = (isLogged) =>{
     return [ 
-        
+        {
+            exact: true,
+            path: '/',
+            component: About,
+        },
          {
              exact: true,
              path: '/About',
@@ -27,7 +31,7 @@ const serverRoutes = (isLogged) =>{
         {
             exact: true,
             path: '/Blog/:id',
-            component: BlogPost,
+            component: Post,
         },
         {
             exact: true,
@@ -43,11 +47,6 @@ const serverRoutes = (isLogged) =>{
             exact: true,
             path: '/Profile/:id',
             component: UserProfile,
-        },
-        {
-            exact: true,
-            path: '/',
-            component: About,
         },
         {
             name: 'NotFound',

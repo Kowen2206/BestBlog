@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../components/Header';
 import { connect } from 'react-redux';
-import { createArticle, showWindowError, loadArticle, updateArticle, injectArticle} from '../actions';
+import { createArticle, showWindowMessage, loadArticle, updateArticle, injectArticle} from '../actions';
 import '../assets/styles/Moleculas/Editor.scss';
 import '../assets/styles/Atomos/UploadImageButton.scss';
 import HeaderImageEditor from '../components/HeaderImageEditor';
@@ -10,11 +10,10 @@ import useGetDate from '../hooks/useGetDate';
 import { useParams } from 'react-router-dom';
 import useDeleteFromLocalStorage from '../hooks/useDeleteFromLocalStorage';
 
-//papillon
 const Editor = (props) => {
   const {id} = useParams();
   let articleError = false;
-  const {UserName, UserPhoto, UserId, showWindowError, articleView, loadArticle, injectArticle, createArticle, updateArticle} = props
+  const {UserName, UserPhoto, UserId, showWindowMessage, articleView, loadArticle, injectArticle, createArticle, updateArticle} = props
   const getDate = useGetDate();
   const removeArticle = useDeleteFromLocalStorage();
 
@@ -42,7 +41,7 @@ const Editor = (props) => {
 
   const handleError = (errorMessage) =>{
     articleError = true;
-    showWindowError([true, errorMessage]);
+    showWindowMessage({message: errorMessage, title: "Error" });
   }
 
   const handleSubmit = () =>{
@@ -116,7 +115,7 @@ const Editor = (props) => {
 
 const mapDispatchToProps = {
   createArticle,
-  showWindowError,
+  showWindowMessage,
   loadArticle,
   injectArticle,
   updateArticle

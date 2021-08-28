@@ -10,7 +10,6 @@ serviceAccount.client_id = process.env.CLIENT_ID
 serviceAccount.auth_provider_x509_cert_url = process.env.AUTH_PROVIDER_CERT_URL
 serviceAccount.client_x509_cert_url = process.env.CLIENT_CERT_URL
 
-console.log(serviceAccount)
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     storageBucket: "gs://bestblog-3643f.appspot.com"

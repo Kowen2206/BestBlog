@@ -1,101 +1,40 @@
 import axios from 'axios';
 import useDeleteFromLocalStorage from '../hooks/useDeleteFromLocalStorage';
 
-export const saveArticle = payload => {
-  return {
-    type: "saveArticle",
-    payload
-  }
-}
-
-//cargar un unico articulo apartir de su id y un type, el cual decide que action ejecutar
-export const loadArticle = payload =>{
-  return (dispatch) =>{
-      axios.post('/api/article', {payload})
-      .then(data =>{
-        dispatch(injectArticle(data.data)); 
-      })
-      .catch(err => {  console.log("err"); console.log(err)});
-  }
-}
-
-// Inyecta un articulo a el state del store
-export const injectArticle = (payload) =>{
-  return{
-    type: "injectArticle",
-    payload
-  }
-}
-
-const removeArticleFromState = (payload) =>{
-  return{type: "deleteArticle", payload}
-}
-
-export const createArticle = (payload) => {
-  return (dispatch) => {
-        axios.post('/api/articles/createArticle', payload)
-        .then( () =>{
-         const removeArticle = useDeleteFromLocalStorage();
-         removeArticle();
-        })
-        .then( () => window.setTimeout(() =>window.location.href = "/Home", 1000))
-        .catch((err) => { 
-          const message = "Error al crear el articulo";
-          console.log(message);
-          console.log(err.message); 
-        });
-  }
-}
-
-export const deleteArticle = (idArticle) =>{
-  return (dispatch) =>{
-      axios.post('/api/deleteArticle', {idArticle})
-      .then(() => {
-        dispatch(removeArticleFromState(idArticle))})
-      .catch(res=> console.log("err \n" + res));
-  }
-}
-
-export const updateArticle = ({payload, id}) =>{
-  return (dispatch) => {
-        axios.post(`/api/articles/updateArticle`, {id, payload})
-       .then( () =>{
-         const removeArticle = useDeleteFromLocalStorage();
-         removeArticle();
-        }) 
-        .then( () => window.setTimeout(() =>window.location.href = "/Home", 1000))
-        .catch((err) => { 
-          const message = "Error al crear el articulo";
-          console.log(message);
-          console.log(err.message); 
-        });
-  }
-}
-
-export const saveTemporalArticle = (payload) =>{
-  return () =>{
-   const {article} = payload || "";
-  }
-}
+/* ------------------AUTH------------------------- */
 
 export const registerhttp = (redirectUrl, payload) => {
   return (dispatch) => {
     const form = new FormData();
     form.append("Image", payload.photo);
-    axios.post('/uploadImage', form, {
+    dispatch(showWindowMessage({ message: "Cargando...", title: "Espera un momento" }));
+    axios.post('/db/uploadImage', form, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
-    }).then((data) =>{
-      axios.post("/auth/sign-up", {...payload, photo: data.data.url}).
-      then(() => window.location.href = redirectUrl).
-      catch((err) => { console.log("Error:" + err) });
+    }).then((data) => {
+      axios.post("/auth/sign-up", { ...payload, photo: data.data.url }).
+        then((res) => {
+          const error = res.data;
+          if (!error.err) {
+            setTimeout(() => {
+              dispatch(showWindowMessage({ message: "", title: "" }));
+              window.location.href = redirectUrl;
+            }, 3000);
+          } else {
+            dispatch(showWindowMessage({ message: error.err, title: "Error" }));
+          }
+        })
+        .catch(() => {
+          dispatch(showWindowMessage({ message: 'Error interno, intentalo más tarde', title: "Error" }));
+        });
     });
   }
 }
 
 export const sigInhttp = (redirectUrl, { email, password }) => {
   return (dispatch) => {
+    dispatch(showWindowMessage({ message: "Cargando...", title: "Espera un momento" }));
     axios({
       url: '/auth/sign-in',
       method: 'post',
@@ -104,34 +43,21 @@ export const sigInhttp = (redirectUrl, { email, password }) => {
         password
       },
     }).then(({ data }) => {
-        document.cookie = `email=${data.user.email}`;
-        document.cookie = `name=${data.user.name}`
-        document.cookie = `id=${data.user.id}`
-        document.cookie = `photo=${data.user.photo}`
-        dispatch(signIn({ data }))
-      })
-      .then(()=>window.location.href = redirectUrl)
-      .catch(() => {
-        console.log("ERROR")
-        dispatch(showWindowError([true, "Error al inciar sessión"]))
+      console.log("creando coockies");
+      document.cookie = `email=${data.user.email}`;
+      document.cookie = `name=${data.user.name}`
+      document.cookie = `id=${data.user.id}`
+      document.cookie = `photo=${data.user.photo}`
+      dispatch(signIn({ data }));
+    })
+      .then(() => setTimeout(() => {
+        dispatch(showWindowMessage({ message: "", title: "" }));
+        window.location.href = redirectUrl;
+      }, 3000))
+      .catch((err) => {
+        dispatch(showWindowMessage({ message: "Error al iniciar sesión", title: "Error" }));
       });
   }
-}
-
-export const uploadImage = (payload) =>{
-const {key, photo} = payload;
-return ()=>{
-  const form = new FormData();
-    form.append("Image", photo);
-    axios.post('/uploadImage', form, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    }).then(data => {
-      console.log("data " + JSON.stringify(data.data));
-      window.localStorage.setItem(key, data.data.url);
-   })
-}
 }
 
 export const registerUser = () => {
@@ -155,15 +81,182 @@ export const LogOut = () => {
   }
 }
 
-export const getUserArticles = (payload) =>{
-  return (dispatch) =>{
-    axios.post("/api/articles", {userId: payload})
+export const saveArticle = payload => {
+  return {
+    type: "saveArticle",
+    payload
   }
 }
 
-export const showWindowError = (payload) =>{
-    return{
-        type: "showWindowError",
-        payload
+/* ------------------USER------------------------- */
+export const getUserArticles = (payload) => {
+  return (dispatch) => {
+    axios.post("/articles/get-user-articles", { userId: payload })
+  }
+}
+
+export const updateUserAction = (user) => {
+
+  return (dispatch) => {
+    dispatch(showWindowMessage({ message: "Cargando...", title: "Espera un momento" }));
+    let values = Object.keys(user);
+
+    for (let i = 0; i < values.length; i++) {
+      if (user[values[i]] === "" || user[values[i]] === null) {
+        delete user[values[i]]
+      }
     }
+    if (user.photo) {
+      const form = new FormData();
+      form.append("Image", user.photo);
+      dispatch(showWindowMessage({ message: "Cargando...", title: "Espera un momento" }));
+      axios.post('/db/uploadImage', form, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then((data) => {
+        
+        axios.post(`/user/update`, {...user, photo: data.data.url})
+        .then((res) =>{
+          const error = res.data;
+          if (!error.err) {
+
+          document.cookie = `photo=${ data.data.url}`
+          window.setTimeout(() => {
+            dispatch(showWindowMessage({ message: "", title: "" }));
+          }, 3000)
+
+        }else{
+          dispatch(showWindowMessage({ message: error.err, title: "Error" }));
+        }
+        
+        })
+        .catch(() => { dispatch(showWindowMessage({ message: 'Error interno, intentalo más tarde', title: "Error" }));});
+
+      })
+      .catch(() => { dispatch(showWindowMessage({ message: 'Error interno, intentalo más tarde', title: "Error" })); });
+
+    } else {
+      axios.post(`/user/update`, user)
+        .then((res) =>
+          {
+            const error = res.data;
+            if (!error.err) {
+              window.setTimeout(() => {
+                dispatch(showWindowMessage({ message: "", title: "" }));
+              }, 3000)
+    
+            }else{
+              dispatch(showWindowMessage({ message: error.err, title: "Error" }));
+            }
+
+          })
+        .catch(() => { dispatch(showWindowMessage({ message: 'Error interno, intentalo más tarde', title: "Error" })); });
+    }
+  }
+}
+
+/* ------------------ARTICLES------------------------- */
+
+
+//cargar un unico articulo apartir de su id y un type, el cual decide que action ejecutar
+export const loadArticle = payload => {
+  return (dispatch) => {
+    axios.post('/article/get-one', { payload })
+      .then(data => {
+        dispatch(injectArticle(data.data));
+      })
+      .catch(err => { dispatch(showWindowMessage({ message: 'Error interno, intentalo más tarde', title: "Error" })); });
+  }
+}
+
+// Inyecta el contenido de un articulo (titulo, contenido, autor etc.) a el state del store
+export const injectArticle = (payload) => {
+  return {
+    type: "injectArticle",
+    payload
+  }
+}
+
+const removeArticleFromState = (payload) => {
+  return { type: "deleteArticle", payload }
+}
+
+export const createArticle = (payload) => {
+  return (dispatch) => {
+    dispatch(showWindowMessage({ message: "Cargando...", title: "Espera un momento" }));
+    axios.post('/article/create', payload)
+      .then(() => {
+        const removeArticle = useDeleteFromLocalStorage();
+        removeArticle();
+      })
+      .then(() =>
+        window.setTimeout(() => {
+          dispatch(showWindowMessage({ message: "", title: "" }));
+          window.location.href = "/Home"
+        }, 3000))
+      .catch((err) => {
+        dispatch(showWindowMessage({ message: 'Error interno, intentalo más tarde', title: "Error" }));
+      });
+  }
+}
+
+export const deleteArticle = (idArticle) => {
+  return (dispatch) => {
+    axios.post('/article/delete', { idArticle })
+      .then(() => {
+        dispatch(removeArticleFromState(idArticle))
+      })
+      .catch(res => dispatch(showWindowMessage({ message: 'Error interno, intentalo más tarde', title: "Error" })));
+  }
+}
+
+export const updateArticle = ({ payload, id }) => {
+  return (dispatch) => {
+    dispatch(showWindowMessage({ message: "Cargando...", title: "Espera un momento" }));
+    axios.post(`/article/update`, { id, payload })
+      .then(() => {
+        const removeArticle = useDeleteFromLocalStorage();
+        removeArticle();
+      })
+      .then(() => window.setTimeout(() => {
+        dispatch(showWindowMessage({ message: "", title: "" }));
+        window.location.href = "/Home"
+      }, 3000))
+      .catch((err) => {
+        dispatch(showWindowMessage({ message: 'Error interno, intentalo más tarde', title: "Error" }));
+      });
+  }
+}
+
+export const saveTemporalArticle = (payload) => {
+  return () => {
+    const { article } = payload || "";
+  }
+}
+
+/* ------------------IMAGES------------------------- */
+
+
+export const uploadImage = (payload) => {
+  const { key, photo } = payload;
+  return (dispatch) => {
+    const form = new FormData();
+    form.append("Image", photo);
+    axios.post('/db/uploadImage', form, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }).then(data => {
+      console.log("data " + JSON.stringify(data.data));
+      window.localStorage.setItem(key, data.data.url);
+    }).catch(() => dispatch(showWindowMessage({ message: 'Error interno, intentalo más tarde', title: "Error" })));
+  }
+}
+
+export const showWindowMessage = (payload) => {
+  return {
+    type: "showWindowMessage",
+    payload
+  }
 }

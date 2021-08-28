@@ -1,0 +1,84 @@
+@import '../Lib/Vars';
+
+.updateUser-container{
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0px;
+    
+}
+
+.updateUser-wraper{
+    width: 30vw;
+    max-height: 95vh;
+    overflow-y: auto;
+    border-radius: 12px;
+    border: solid 1px;
+    background-color: $color-white;
+    padding: 20px 10px;
+    text-align: center;
+    position: relative;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    button{
+        background-color: rgba(240, 248, 255, 0);
+        border: none;
+    }
+}
+
+.updateUser-button{
+    border: solid 1px $color-white;
+    color: $color-white;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 80%;
+    margin: 10px 0px;
+}
+
+.updateUser-button:hover{
+    width: 82%;
+}
+
+.updateUser-close-button{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    height: 15px;
+    width: 15px;
+    object-fit: contain;
+    cursor: pointer;
+    
+}
+
+.updateUser-form{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin: 20px;
+    label{
+        margin: 12px 0px;
+    }
+    img{
+        object-fit: cover;
+        height: 15vh;
+        width: 15vh;
+        margin: 12px auto;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+    button{
+        margin: 12px auto;
+        max-width: 60%;
+    }
+}
+
+

@@ -1,37 +1,49 @@
 @import '../Lib/Vars.scss';
 
-.window-error-container{
-    width: 70vw;
-    padding: 0% 5%;
-    height: 30vh;
-    position: absolute;
+.wraper-window-container{
+    width: 100%;
+    height: 100vh;
+    position: fixed;
     z-index: 1000;
-    top: 30%;
-    left: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #55555516;
+    top:0px;
+}
+
+.window-message-container{
+    min-height: 20vh;
     background-color: $color-white;
     border: solid 1px;
     text-align: center;
     @extend %flex-center;
     flex-direction: column;
-    justify-content: space-evenly;
-
+    justify-content: space-between;
+    position: absolute;
 }
 
-.window-error-container h1{
-    position: absolute;
-    top: 0px;
+.window-message-container h1{
+    min-width: 40vh;
     padding-top: 5px;
     background-color: $color-black;
     color: $color-white;
     width: 100.1%;
+    margin-bottom: 10%;
 }
 
 
-.window-error-container button{
+.window-message-container button{
     background-color: #555555;
     color: aliceblue;
     border-radius: 3px;
     border: solid 1px $color-black;
     width: 90px;
     height: 24px;
+    margin-bottom: 10%;
+    cursor: pointer;
+}
+
+.window-message-container p{
+    margin-bottom: 10%;
 }

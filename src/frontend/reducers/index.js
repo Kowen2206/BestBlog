@@ -28,11 +28,11 @@ const reducer = (state, action)=>{
                     ...state,
                     articles:  newArticlesArray
                 }
-        case "showWindowError":
-                console.log("ShowWindowError");
+        case "showWindowMessage":
+                console.log("ShowWindowMessage");
                 return{
                     ...state,
-                    Error:  [action.payload[0], action.payload[1]]
+                    Message:  {...action.payload}
                 }
         default:
             return state;

@@ -4,27 +4,24 @@ import BlogListItem from '../components/BlogListItem';
 import '../assets/styles/Moleculas/UserHeader.scss'
 import {connect} from 'react-redux';
 import Header from '../components/Header';
-import {getUserArticles} from '../actions'
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import userImage from '../assets/statics/images/programmer.png';
 
 const UserProfile = (props) =>{
 
     let { id } = useParams();
 
-    let index = props.state.articles.length;
+    let index = 0;
     const [userData, setUserData] = useState({id:"cargando", name:"cargando", articles: [], image: ""});
-    
+
     useEffect(()=>{
-    
-        axios.post("/api/articles-user", {tags: id})
+        axios.post("/article/get-user-articles", {tags: id})
         .then(res => {
             const articles = res.data.data;
-            axios.post("/api/user", {id})
+            axios.post("/user", {id})
             .then(res => {
                 const data = res.data.data;
-
+                index = articles.length;
                 setUserData(
                     {
                         ...userData, 
@@ -33,7 +30,7 @@ const UserProfile = (props) =>{
                         id: data._id,
                         articles
                     }
-                    );
+                );
             });
         });
     },[]);
@@ -42,13 +39,13 @@ const UserProfile = (props) =>{
         <>
         <Header/>
         <div className="userProfile__container">
-            <UserHeader Name={userData.name} Image={userData.image}/>
+            <UserHeader Id={props.user.id} IdParams={id} Name={userData.name} Image={userData.image}/>
             <div className="blogLitsItem__container">
                 {userData.articles != false? userData.articles.map(item => {
                     if(item.UserId == userData.id ){
                         index -= 1;
                         return <BlogListItem orderIndex={index} key={item._id} {...item} />}  
-                    }) : <div> cargando </div>
+                    }) : <div/>
                 }
             </div>
         </div>
@@ -58,13 +55,8 @@ const UserProfile = (props) =>{
 
 const mapStateToProps = state =>{
     return{
-        state: state
+        user: state.user
     }
 }
 
-const mapDispatchToProps =
-{
-    getUserArticles
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);
+export default connect(mapStateToProps, null)(UserProfile);

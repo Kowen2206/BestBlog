@@ -37,6 +37,16 @@
     height: 40%;
     background-color:$color-gray ;
     border-bottom: solid 1px rgb(167, 167, 167);
+    position: relative;
+}
+
+.trashBlock img{
+    width: 2vw;
+    height: 2vw;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
 }
 
 .userHeader__container :nth-child(2){

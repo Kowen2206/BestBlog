@@ -2,16 +2,16 @@ import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import '../assets/styles/Organismos/Footer.scss';
-import BlogContent from '../components/BlogContent';
+import PostContent from '../components/PostContent';
 
-const BlogPost = () =>{
+const Post = () =>{
 return(
     <div className="App">
             <Header/>
-            <BlogContent/>
+            <PostContent/>
             <Footer/>
     </div>
 );
 }
 
-export default BlogPost;
+export default Post;

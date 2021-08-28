@@ -6,7 +6,7 @@ import '../assets/styles/Moleculas/BlogContent.scss';
 import HeaderImage from './HeaderImage';
 import { useParams } from 'react-router-dom';
 
-const BlogContent = (props) => {
+const PostContent = (props) => {
     
     let { id } = useParams();
 
@@ -41,4 +41,4 @@ const mapDispatchToProps = {
     injectArticle
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(BlogContent);
+export default connect(mapStateToProps, mapDispatchToProps)(PostContent);

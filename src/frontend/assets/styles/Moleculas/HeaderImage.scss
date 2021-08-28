@@ -18,7 +18,6 @@
     background-color: $color-black;
     @media (orientation: landscape){
         height: 70vh;
-        
     }
     @include respond-to(1250px){
         height: 70vh;

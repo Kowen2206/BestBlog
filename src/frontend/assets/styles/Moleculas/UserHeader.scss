@@ -19,6 +19,9 @@
     justify-content: center;
     flex-wrap: wrap;
     overflow: hidden;
+    @media (orientation: landscape){
+        height: 40vh;
+    }
     @include respond-to(1250px){
         height: 40vh;
     }

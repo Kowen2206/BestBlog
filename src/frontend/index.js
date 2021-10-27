@@ -15,10 +15,6 @@ const preloadedState = window.__PRELOADED_STATE__;
 const store = createStore(reducer, preloadedState, composeEnhancers(applyMiddleware(thunk)));
 delete window.__PRELOADED_STATE__;
 
-console.log(preloadedState + "store");
-console.log(store);
-console.log(preloadedState);
-
 ReactDom.hydrate(
     <Provider store={store}>
         <Router history={history}>

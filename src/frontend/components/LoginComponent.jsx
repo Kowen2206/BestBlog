@@ -38,8 +38,6 @@ const LoginComponent = (props) => {
         }else{
            props.sigInhttp('/', form) 
         }
-        
-        
     }
 
     return (
@@ -59,16 +57,17 @@ const LoginComponent = (props) => {
 
                     <label htmlFor="password"> Repite tu contraseña</label>
                     <input pattern={form.password} required={true} title="Las contraseñas no coinciden" type="password" name="password" id="Contraseña" />
-                    <img className="loginCard_UserImagePreview" src={imageUser} alt="" />
-                    <span>{imageUser !== userImageDefault? form.photo.name : "Debes subir una imagen"}</span>
-                    <label className="ImageButton" htmlFor="Image"> Cambiar foto de perfil </label>
-                    <input required={true} className="InputFile" accept="image/*" onChange={data => {
-                        let url = createImageUrl(data);
-                        setimageUser(url);
-                        setValues({ ...form, photo: data.target.files[0]});
-                    }}
-                    type="file" id="Image" name="Image" />
-                    <br/>
+                    <div className='loginCard_inputFile_wrapper'> 
+                        <img className="loginCard_UserImagePreview" src={imageUser} alt="" />
+                        <span>{imageUser !== userImageDefault? form.photo.name : "Debes subir una imagen"}</span>
+                        <label className="ImageButton" htmlFor="Image"> Cambiar foto de perfil </label>
+                        <input required={true} className="InputFile" accept="image/*" onChange={data => {
+                            let url = createImageUrl(data);
+                            setimageUser(url);
+                            setValues({ ...form, photo: data.target.files[0]});
+                        }}
+                        type="file" id="Image" name="Image" />
+                    </div>
 
                 </>}
                 <button className="contentLogin-card-submit"> {registered ? "Continuar" : "Registrate"} </button>

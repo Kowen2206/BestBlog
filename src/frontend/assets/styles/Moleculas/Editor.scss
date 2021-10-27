@@ -2,9 +2,13 @@
 
 .editor__container{
      min-height: 75%;
-     width: 80%;
-     margin-left: 10%;
+     width: 90%;
+     margin-left: 5%;
      margin-bottom: 20vh;
+     @include respond-to(700px){
+          width: 80%;
+          margin-left: 10%;
+      }
 }
 
 .editor__container li{

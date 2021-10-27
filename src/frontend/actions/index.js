@@ -43,14 +43,12 @@ export const sigInhttp = (redirectUrl, { email, password }) => {
         password
       },
     }).then(({ data }) => {
-      console.log("creando coockies");
-      document.cookie = `email=${data.user.email}`;
-      document.cookie = `name=${data.user.name}`
-      document.cookie = `id=${data.user.id}`
-      document.cookie = `photo=${data.user.photo}`
+      document.cookie = `email=${data.user.email}; path=/`;
+      document.cookie = `name=${data.user.name}; path=/`;
+      document.cookie = `id=${data.user.id}; path=/`;
+      document.cookie = `photo=${data.user.photo}; path=/`;
       dispatch(signIn({ data }));
-    })
-      .then(() => setTimeout(() => {
+    }).then(() => setTimeout(() => {
         dispatch(showWindowMessage({ message: "", title: "" }));
         window.location.href = redirectUrl;
       }, 3000))
@@ -248,7 +246,6 @@ export const uploadImage = (payload) => {
         'Content-Type': 'multipart/form-data'
       }
     }).then(data => {
-      console.log("data " + JSON.stringify(data.data));
       window.localStorage.setItem(key, data.data.url);
     }).catch(() => dispatch(showWindowMessage({ message: 'Error interno, intentalo más tarde', title: "Error" })));
   }

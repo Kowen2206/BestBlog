@@ -10,18 +10,16 @@ const Header = (props) => {
     const [menu, useMenu] = useState(false);
 
     const handleTogle = () => {
-        console.log(menu)
         useMenu(!menu);
     }
 
     const handleLogOut = () => {
-        console.log("logout")
         props.LogOut();
-        document.cookie = "email=";
-        document.cookie = "name=";
-        document.cookie = "id=";
-        document.cookie = "token=";
-        document.cookie = "photo=";
+        document.cookie = "email=; path=/";
+        document.cookie = "name=; path=/";
+        document.cookie = "id=; path=/";
+        document.cookie = "token=; path=/";
+        document.cookie = "photo=; path=/";
         window.location.href = "/";
     }
 

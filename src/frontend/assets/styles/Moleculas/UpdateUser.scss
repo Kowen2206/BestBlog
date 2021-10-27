@@ -13,7 +13,7 @@
 }
 
 .updateUser-wraper{
-    width: 30vw;
+    width: 95vw;
     max-height: 95vh;
     overflow-y: auto;
     border-radius: 12px;
@@ -22,7 +22,7 @@
     padding: 20px 10px;
     text-align: center;
     position: relative;
-    z-index: 1000;
+    z-index: 100;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -30,6 +30,12 @@
         background-color: rgba(240, 248, 255, 0);
         border: none;
     }
+
+    @include respond-to(1250px){
+        width: 30vw;
+    }
+    
+    
 }
 
 .updateUser-button{

@@ -1,7 +1,8 @@
 @import '../Lib/Vars.scss';
 
 .header__container{
-    @extend %flex-center;
+    display: flex;
+    justify-content: space-between;
     min-height: 10vh;
     text-align: center;
     background-color:$color-black;
@@ -10,6 +11,7 @@
     padding-top: 0%;
     align-items: center;
     position: relative;
+
     @include respond-to(700px){
         flex-wrap: nowrap;
         align-items: center;
@@ -18,7 +20,7 @@
 }
 
 .header_logo{
-    width: 80%;
+    width: auto;
     text-align: left;
     padding-left: 3%;
     font-size: 18px;

@@ -5,14 +5,14 @@ import { injectArticle } from '../actions';
 import '../assets/styles/Moleculas/BlogContent.scss';
 import HeaderImage from './HeaderImage';
 import { useParams } from 'react-router-dom';
+import user from '../../server/routes/user';
 
 const PostContent = (props) => {
     
     let { id } = useParams();
 
     useEffect(() => {
-        props.loadArticle(id);
-        console.log(props.articleView);
+        props.loadArticle({userId: props.userId, articleId: id});
         return () =>{
             props.injectArticle([])
         }
@@ -32,7 +32,8 @@ const PostContent = (props) => {
 
 const mapStateToProps = state => {
     return {
-        articleView: state.articleView
+        articleView: state.articleView,
+        userId: user.id
     }
 }
 

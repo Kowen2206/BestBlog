@@ -72,7 +72,8 @@ const setInitialState = async (req, res, next)=> {
             {
                 url: `${process.env.API_URL}/api/article`,
                 headers: { Autorization: `Bearer${token}` },
-                method: "get"
+                method: "get",
+                body:{userId: id}
             });
 
         ArticlesList = ArticlesList.data.data;

@@ -26,7 +26,7 @@ function articles(app) {
             .catch(res => console.log(res));
     })
 
-    //Actualiza un article en mongo
+    //Actualiza un articlulo en mongo
     router.post('/update', async function (req, res, next) {
         try {
             console.log(req.body)
@@ -42,11 +42,11 @@ function articles(app) {
         }
     });
 
-    //consigue todos los articulos de un usuario mediante su id (bueno, creo que era mediante el id)
+    //consigue todos los articulos de un usuario mediante su id.
     router.post("/get-user-articles", async function (req, res, next) {
         try {
-            const { tags } = req.body;
-            const dataArticle = await axios.get(`${process.env.API_URL}/api/article/?tags=${tags}`);
+            const { tags, userId } = req.body;
+            const dataArticle = await axios.get(`${process.env.API_URL}/api/article/`, {userId, tags});
             res.status(200).send(dataArticle.data);
         }
         catch (err) {
@@ -56,16 +56,17 @@ function articles(app) {
 
     //obtiene un articulo mediante el id del articulo
     router.post('/get-one', (req, res, next) => {
-        const { payload } = req.body;
-        axios.get(`${process.env.API_URL}/api/article/${payload}`)
+        const { articleId, userId } = req.body;
+        axios.get(`${process.env.API_URL}/api/article/getOne`, userId, articleId)
             .then(article => res.status(200).send(JSON.stringify(article.data.data)))
             .catch(err => { console.log("errServer"); console.log(err); res.send(err); });
     });
 
     //consigue todos los articulos de la api
     router.post("/get-all", async function (req, res, next) {
+        const {userId, tags} = req.body;
         try {
-            const dataArticle = await axios.get(`${process.env.API_URL}/api/article`);
+            const dataArticle = await axios.get(`${process.env.API_URL}/api/article`, {userId, tags});
             res.status(200).send(dataArticle.data);
         }
         catch (err) {

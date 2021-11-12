@@ -1,5 +1,5 @@
 import React from 'react'
-import MessageWindow from './MessageWindow'
+import MessageWindow from '../components/MessageWindow'
 import '../assets/styles/Organismos/ErrorWindow.scss'
 
 const Layout = ({children}) => {

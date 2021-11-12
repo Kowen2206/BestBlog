@@ -8,7 +8,7 @@ const getManifest = () =>{
          console.log(error);
      }
     } catch (error) {
-        console.log("ERROR EN GETMANIFEST");
+        console.log("GETMANIFEST ERROR");
         console.log(error);
     }
 }

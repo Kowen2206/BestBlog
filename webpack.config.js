@@ -13,7 +13,7 @@ const isDev = (process.env.ENV == "development");
 const entry = ['./src/frontend/index.js'];
 isDev && entry.push('webpack-hot-middleware/client?path=/__webpack_hmr&timeout=2000&reload=true');
 
-//public path es muy importante al crear una pagina con rutas dinamica.
+//public path es muy importante al crear una pagina con rutas dinamicas.
 
 module.exports = {
     entry,

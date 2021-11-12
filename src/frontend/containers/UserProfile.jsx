@@ -15,7 +15,7 @@ const UserProfile = (props) =>{
     const [userData, setUserData] = useState({id:"cargando", name:"cargando", articles: [], image: ""});
 
     useEffect(()=>{
-        axios.post("/article/get-user-articles", {tags: id})
+        axios.post("/article/get-user-articles", {userId: id})
         .then(res => {
             const articles = res.data.data;
             axios.post("/user", {id})

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Header from '../components/Header';
 import { connect } from 'react-redux';
 import { createArticle, showWindowMessage, loadArticle, updateArticle, injectArticle} from '../actions';
@@ -9,6 +9,7 @@ import CkEditor from '../components/CkEditor';
 import useGetDate from '../hooks/useGetDate';
 import { useParams } from 'react-router-dom';
 import useDeleteFromLocalStorage from '../hooks/useDeleteFromLocalStorage';
+import usePostState from '../hooks/usePostState';
 
 const Editor = (props) => {
   const {id} = useParams();
@@ -16,7 +17,7 @@ const Editor = (props) => {
   const {UserName, UserPhoto, UserId, showWindowMessage, articleView, loadArticle, injectArticle, createArticle, updateArticle} = props
   const getDate = useGetDate();
   const removeArticle = useDeleteFromLocalStorage();
-
+  const {postStatusState, togglePostStatus} = usePostState();
   React.useEffect(() => {
     console.log(id);
     if(id !== "Nuevo"){
@@ -30,6 +31,8 @@ const Editor = (props) => {
       injectArticle([])
     }
   }, []);
+
+  
 
   const getSumary = (articleContent) =>{
     if(articleContent.length <= 170) {
@@ -73,7 +76,8 @@ const Editor = (props) => {
       Date,
       ArticlePhoto,
       UserPhoto,
-      UserId
+      UserId,
+      Status: postStatusState ? 'public' : 'private',
       }
 
       createArticle(articleSchema) 
@@ -89,7 +93,8 @@ const Editor = (props) => {
       UserName,
       Date,
       ArticlePhoto,
-      UserPhoto
+      UserPhoto,
+      Status: postStatusState ? 'public' : 'private',
       }
 
       updateArticle({id, payload: articleSchema})
@@ -101,9 +106,17 @@ const Editor = (props) => {
       <Header/>
       <div className="editor__container">
         <HeaderImageEditor articlePhoto={articleView.ArticlePhoto || ""} />
+        <label> {`Tu articulo es ${postStatusState? 'público, cualquiera puede verlo' 
+          : 'privado, solo tu puedes verlo'}`} </label>
+        <br />
+        <button onClick={togglePostStatus}>
+          hacer{` ${postStatusState ? 'privado' : 'público'}`}
+        </button>
+        <br />
+        <br />
         <CkEditor articleContent={articleView.ArticleContent || ""} articleTitle={articleView.Title || ""}  articleId={id} />
         <button onClick={() => {
-          handleSubmit()
+          handleSubmit();
         }}>
           Guardar
         </button>

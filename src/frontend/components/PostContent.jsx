@@ -5,7 +5,6 @@ import { injectArticle } from '../actions';
 import '../assets/styles/Moleculas/BlogContent.scss';
 import HeaderImage from './HeaderImage';
 import { useParams } from 'react-router-dom';
-import user from '../../server/routes/user';
 
 const PostContent = (props) => {
     
@@ -33,7 +32,7 @@ const PostContent = (props) => {
 const mapStateToProps = state => {
     return {
         articleView: state.articleView,
-        userId: user.id
+        userId: state.user.id
     }
 }
 

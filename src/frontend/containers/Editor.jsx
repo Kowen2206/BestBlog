@@ -14,14 +14,14 @@ import usePostState from '../hooks/usePostState';
 const Editor = (props) => {
   const {id} = useParams();
   let articleError = false;
-  const {UserName, UserPhoto, UserId, showWindowMessage, articleView, loadArticle, injectArticle, createArticle, updateArticle} = props
+  const {UserName, UserPhoto, UserId, showWindowMessage, articleView, loadArticle, injectArticle, createArticle, updateArticle} = props;
+  const author = articleView.UserId || '';
   const getDate = useGetDate();
   const removeArticle = useDeleteFromLocalStorage();
   const {postStatusState, togglePostStatus} = usePostState();
   React.useEffect(() => {
-    console.log(id);
     if(id !== "Nuevo"){
-      loadArticle(id)
+      loadArticle({UserId, ArticleId: id})
     }
 
     return () =>{
@@ -31,8 +31,6 @@ const Editor = (props) => {
       injectArticle([])
     }
   }, []);
-
-  
 
   const getSumary = (articleContent) =>{
     if(articleContent.length <= 170) {
@@ -101,11 +99,15 @@ const Editor = (props) => {
 
   }
 
+  console.log('articleView.UserId');
+  console.log(articleView);
+  console.log(UserId);
+
   return (
     <>
       <Header/>
       <div className="editor__container">
-        <HeaderImageEditor articlePhoto={articleView.ArticlePhoto || ""} />
+        <HeaderImageEditor articlePhoto={UserId === author ? articleView.ArticlePhoto || '' : ""} />
         <label> {`Tu articulo es ${postStatusState? 'público, cualquiera puede verlo' 
           : 'privado, solo tu puedes verlo'}`} </label>
         <br />
@@ -114,12 +116,18 @@ const Editor = (props) => {
         </button>
         <br />
         <br />
-        <CkEditor articleContent={articleView.ArticleContent || ""} articleTitle={articleView.Title || ""}  articleId={id} />
-        <button onClick={() => {
-          handleSubmit();
-        }}>
-          Guardar
-        </button>
+        <CkEditor 
+          articleContent={UserId === author ? articleView.ArticleContent || '' : ""} 
+          articleTitle={UserId === author ? articleView.Title || '' : ""}
+          articleId={id} />
+        {
+          UserId === author &&
+            <button onClick={() => {
+              handleSubmit();
+            }}>
+              Guardar
+            </button>
+        } 
       </div>
     </>
 

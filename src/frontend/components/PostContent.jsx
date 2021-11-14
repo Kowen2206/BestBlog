@@ -11,7 +11,7 @@ const PostContent = (props) => {
     let { id } = useParams();
 
     useEffect(() => {
-        props.loadArticle({userId: props.userId, articleId: id});
+        props.loadArticle({UserId: props.userId, ArticleId: id});
         return () =>{
             props.injectArticle([])
         }

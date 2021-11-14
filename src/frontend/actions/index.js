@@ -160,7 +160,7 @@ export const updateUserAction = (user) => {
 //cargar un unico articulo apartir de su id y un type, el cual decide que action ejecutar
 export const loadArticle = payload => {
   return (dispatch) => {
-    axios.post('/article/get-one', { payload })
+    axios.post('/article/get-one', payload )
       .then(data => {
         dispatch(injectArticle(data.data));
       })

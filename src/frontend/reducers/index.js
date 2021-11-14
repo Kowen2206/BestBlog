@@ -22,7 +22,6 @@ const reducer = (state, action)=>{
                 articleView: action.payload
             }
         case "deleteArticle":
-                console.log("delete article");
                 const newArticlesArray = state.articles.filter(item => item._id !== action.payload);
                 return{
                     ...state,

@@ -55,9 +55,14 @@ function articles(app) {
     });
 
     //obtiene un articulo mediante el id del articulo
-    router.post('/get-one', (req, res, next) => {
-        const { articleId, userId } = req.body;
-        axios.get(`${process.env.API_URL}/api/article/getOne`, userId, articleId)
+    router.post('/get-one', async (req, res, next) => {
+        const { ArticleId, UserId } = req.body;
+
+        await axios(`${process.env.API_URL}/api/article/getOne`, 
+        {
+            method: 'get',
+            data: {UserId, ArticleId}
+        })
             .then(article => res.status(200).send(JSON.stringify(article.data.data)))
             .catch(err => { console.log("errServer"); console.log(err); res.send(err); });
     });

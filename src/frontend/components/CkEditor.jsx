@@ -22,7 +22,6 @@ const ckEditor = ({articleContent, articleTitle}) => {
 
         articleTitle !== ""? window.localStorage.setItem("articleTitle", articleTitle) : null
         setText(savedText);
-        console.log(savedText)
         editorRef.current = {
             CKEditor: require('@ckeditor/ckeditor5-react').CKEditor,
             ClassicEditor: require('@ckeditor/ckeditor5-build-classic')

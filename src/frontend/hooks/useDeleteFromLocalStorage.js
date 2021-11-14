@@ -1,6 +1,5 @@
 
 const useDeleteFromLocalStorage = () => {
-    console.log("remove articles")
     const removeArticle = () =>{
         window.localStorage.removeItem("articleContent");
         window.localStorage.removeItem("articleTitle");

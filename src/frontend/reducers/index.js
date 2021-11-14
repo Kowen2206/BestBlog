@@ -28,7 +28,6 @@ const reducer = (state, action)=>{
                     articles:  newArticlesArray
                 }
         case "showWindowMessage":
-                console.log("ShowWindowMessage");
                 return{
                     ...state,
                     Message:  {...action.payload}

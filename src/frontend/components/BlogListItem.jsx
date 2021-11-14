@@ -10,8 +10,6 @@ const [options, optionsState] = useState(false);
 
 const handleClickOptions = (action) =>{
 
-    console.log(action)
-    console.log(props._id)
     action == "Eliminar"?
     props.deleteArticle(props._id)
     : window.location.href = `/Editor/${props._id}`;

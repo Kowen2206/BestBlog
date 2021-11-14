@@ -10,9 +10,6 @@ function user(app) {
     //obtiene los datos de un usuario mediante su id
     router.post('/', (req, res, next) => {
         const { id } = req.body;
-        console.log("aaaaaaaaaaaaaaaaaaaaaaaaaa");
-        console.log(req.cookies);
-        console.log(id)
         axios.get(`${process.env.API_URL}/api/user/${id}`)
             .then(article => {
                 res.status(200).send(JSON.stringify(article.data))

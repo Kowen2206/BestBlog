@@ -23,7 +23,6 @@ function auth(app) {
                         next(err);
                 }
                     const { token, ...user } = data;
-                    console.log("sign-in");
                     res.cookie("token", token, {
 
                         httpOnly: !(ENV === 'development'),

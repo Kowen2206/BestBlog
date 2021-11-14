@@ -27,7 +27,6 @@ function DBImages(app) {
             });
             blobWriter.on('finish', (data) => {
                 const publicUrl = `https://firebasestorage.googleapis.com/v0/b/${firebase.bucket.name}/o/${encodeURI(blob.name)}?alt=media`;
-                console.log("URL: " + publicUrl)
                 res.status(200).send({
                     uploaded: true,
                     url: publicUrl,
@@ -53,7 +52,6 @@ function DBImages(app) {
             });
             blobWriter.on('finish', (data) => {
                 const publicUrl = `https://firebasestorage.googleapis.com/v0/b/${firebase.bucket.name}/o/${encodeURI(blob.name)}?alt=media`;
-                console.log("URL: " + publicUrl)
                 res.status(200).send({
                     uploaded: true,
                     url: publicUrl,

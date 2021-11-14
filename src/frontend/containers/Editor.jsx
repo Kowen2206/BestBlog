@@ -99,10 +99,6 @@ const Editor = (props) => {
 
   }
 
-  console.log('articleView.UserId');
-  console.log(articleView);
-  console.log(UserId);
-
   return (
     <>
       <Header/>

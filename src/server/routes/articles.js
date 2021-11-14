@@ -23,13 +23,12 @@ function articles(app) {
     router.post('/delete', async function (req, res, next) {
         axios.delete(`${process.env.API_URL}/api/article/${req.body.idArticle}`)
             .then(response => res.status(200).send(response.data))
-            .catch(res => console.log(res));
+            .catch(res => console.error(res));
     })
 
     //Actualiza un articlulo en mongo
     router.post('/update', async function (req, res, next) {
         try {
-            console.log(req.body)
             const { id, payload } = req.body;
             const ArticleStatus = await axios.put(`${process.env.API_URL}/api/article/${id}`, payload);
             res.status(200).send(ArticleStatus.data);

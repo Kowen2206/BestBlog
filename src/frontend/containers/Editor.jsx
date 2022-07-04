@@ -14,16 +14,17 @@ import usePostState from '../hooks/usePostState';
 const Editor = (props) => {
   const {id} = useParams();
   let articleError = false;
-  const {UserName, UserPhoto, UserId, showWindowMessage, articleView, loadArticle, injectArticle, createArticle, updateArticle} = props;
+  const {UserName, UserPhoto, UserId, showWindowMessage, articleView, loadArticle, injectArticle, createArticle, updateArticle, postStatus} = props;
   const author = articleView.UserId || '';
+  const postState = postStatus || "public";
   const getDate = useGetDate();
   const removeArticle = useDeleteFromLocalStorage();
-  const {postStatusState, togglePostStatus} = usePostState();
+  const {postStatusState, togglePostStatus} = usePostState((postState === "public"));
   React.useEffect(() => {
     if(id !== "Nuevo"){
       loadArticle({UserId, ArticleId: id})
     }
-
+    
     return () =>{
       if(id !== "Nuevo") {
         removeArticle();
@@ -104,11 +105,10 @@ const Editor = (props) => {
       <Header/>
       <div className="editor__container">
         <HeaderImageEditor articlePhoto={UserId === author ? articleView.ArticlePhoto || '' : ""} />
-        <label> {`Tu articulo es ${postStatusState? 'público, cualquiera puede verlo' 
-          : 'privado, solo tu puedes verlo'}`} </label>
+        <label> Haz click en el boton para cambiar el estatus de tu articulo </label>
         <br />
-        <button onClick={togglePostStatus}>
-          hacer{` ${postStatusState ? 'privado' : 'público'}`}
+        <button onClick={() => {togglePostStatus();}}>
+          hacer{` ${postStatusState? 'privado' : 'público'}`}
         </button>
         <br />
         <br />
@@ -117,12 +117,14 @@ const Editor = (props) => {
           articleTitle={UserId === author ? articleView.Title || '' : ""}
           articleId={id} />
         {
+          author != ''?
           UserId === author &&
             <button onClick={() => {
               handleSubmit();
-            }}>
-              Guardar
-            </button>
+            }}> Guardar </button>
+          : <button onClick={() => {
+              handleSubmit();
+            }}>  Guardar </button>
         } 
       </div>
     </>
@@ -143,7 +145,8 @@ const mapStateToProps = state => {
       UserName: state.user.name,
       UserPhoto: state.user.photo,
       UserId: state.user.id,
-      articleView: state.articleView
+      articleView: state.articleView,
+      postStatus: state.articleView.Status
   }
 }
 

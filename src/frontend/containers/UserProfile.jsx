@@ -33,7 +33,7 @@ const UserProfile = (props) =>{
                 );
             });
         });
-    },[]);
+    },[id]);
 
     return (
         <>

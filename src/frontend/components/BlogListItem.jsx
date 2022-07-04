@@ -24,7 +24,6 @@ const handleClickOptions = (action) =>{
                     <div className="blogListItem__OptionsDecoration">
 
                     </div>
-
                      
                     {options &&<div  className="blogListItem_options">
                         <ul>

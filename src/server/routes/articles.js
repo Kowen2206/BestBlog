@@ -24,7 +24,7 @@ function articles(app) {
         axios.delete(`${process.env.API_URL}/api/article/${req.body.idArticle}`)
             .then(response => res.status(200).send(response.data))
             .catch(res => console.error(res));
-    })
+    });
 
     //Actualiza un articlulo en mongo
     router.post('/update', async function (req, res, next) {
@@ -45,7 +45,7 @@ function articles(app) {
     router.post("/get-user-articles", async function (req, res, next) {
         try {
             const { tags, userId } = req.body;
-            const dataArticle = await axios.get(`${process.env.API_URL}/api/article/`, {userId, tags});
+            const dataArticle = await axios.get(`${process.env.API_URL}/api/article/user/${userId}`, {userId, tags});
             res.status(200).send(dataArticle.data);
         }
         catch (err) {

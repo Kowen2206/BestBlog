@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-const usePostState = () => {
-    const [postStatusState, setpostStatusState] = useState(true);
+const usePostState = (boolState) => {
+    const [postStatusState, setpostStatusState] = useState(boolState);
 
   const togglePostStatus = () => {
     setpostStatusState(!postStatusState);
